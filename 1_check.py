@@ -9,7 +9,7 @@ def camera_1():
   postdata = request.body.read()
   try:
     postdata = json.loads(postdata)
-  except:
+  except ValueError:
     return '{"error":"True"}'
   if re.match("/\b[a-z]{2}([1-9]|0[2-9]|6[0-9]|1[0-9])[a-z]{3}\b/i ", postdata[plate], flags=0):
     return '{"error":"False","stored":"true"}'
