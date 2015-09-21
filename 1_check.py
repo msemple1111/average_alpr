@@ -20,7 +20,7 @@ def camera_1():
   plate_5 = re.compile("[0-9]{1,3}[A-Z]{1,3}")
   plate_6 = re.compile("[A-Z]{1,2}[0-9]{1,4}")
   plate_7 = re.compile("[A-Z]{1,3}[0-9]{1,3}")
-  if plate_1.match() or plate_2.match() or plate_3.match() or plate_4.match() or plate_5.match() or plate_6.match() or plate_7.match():
+  if plate_1.match(postdata['plate']) or plate_2.match(postdata['plate']) or plate_3.match(postdata['plate']) or plate_4.match(postdata['plate']) or plate_5.match(postdata['plate']) or plate_6.match(postdata['plate']) or plate_7.match(postdata['plate']):
     return '{"error":"False","stored":"True"}'
   else:
     return '{"error":"True","stored":"False"}'
