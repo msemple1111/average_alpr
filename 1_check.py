@@ -12,10 +12,10 @@ def camera_1():
     postdata = json.loads(rawpostdata.decode()) #had to decode cause of problem https://stackoverflow.com/questions/24069197/httpresponse-object-json-object-must-be-str-not-bytes
   except:
     return '{"error":"True"}'
-  if re.match("/\b[a-z]{2}([1-9]|0[2-9]|6[0-9]|1[0-9])[a-z]{3}\b/i ", postdata['plate'], flags=0):
-    return '{"error":"False","stored":"true"}'
+  if re.match("/\b[a-z]{2}([1-9]|0[2-9]|6[0-9]|1[0-9])[a-z]{3}\b/i ", postdata['plate']):
+    return '{"error":"False","stored":"True"}'
   else:
-    return '{"error":"False","stored":"false"}'
+    return '{"error":"True","stored":"False"}'
 run(host='0.0.0.0', port=8080)
 
 '''
