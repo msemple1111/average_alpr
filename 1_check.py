@@ -1,14 +1,15 @@
 #!/bin/python
 import json
+import re
 from bottle import route, run, request
 
 
 @route('/api/camera/1', method='POST')
 def camera_1():
   #post data should look like '{"plate":"YS54 GBF","time": 1442862678}'
-  postdata = request.body.read()
+  rawpostdata = request.body.read()
   try:
-    postdata = json.loads(postdata)
+    postdata = json.loads(rawpostdata.decode())
   except ValueError:
     return '{"error":"True"}'
   if re.match("/\b[a-z]{2}([1-9]|0[2-9]|6[0-9]|1[0-9])[a-z]{3}\b/i ", postdata[plate], flags=0):
