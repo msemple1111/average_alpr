@@ -8,7 +8,7 @@ def camera_1():
   #post data should look like '{"plate":"YS54 GBF","time": 1442862678}'
   try:
     postdata = json.loads(request.body.read())
-  except ValueError, e:
+  except ValueError:
     return '{"error":"True"}'
   if re.match("/\b[a-z]{2}([1-9]|0[2-9]|6[0-9]|1[0-9])[a-z]{3}\b/i ", postdata[plate], flags=0):
     return '{"error":"False","stored":"true"}'
