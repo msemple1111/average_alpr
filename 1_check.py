@@ -2,7 +2,10 @@
 import json
 import re
 from bottle import route, run, request
+import MySQLdb
 
+db = MySQLdb.connect(host="localhost", port=3306, user="average_check", passwd="x9ojrs74VXCwapEmJ88XXIEg5", db="average_check") #http://ianhowson.com/a-quick-guide-to-using-mysql-in-python.html
+rdb = db.cursor()
 
 @route('/api/camera/1', method='POST')
 def camera_1():
@@ -21,9 +24,12 @@ def camera_1():
   plate_6 = re.compile("[A-Z]{1,2}[0-9]{1,4}")
   plate_7 = re.compile("[A-Z]{1,3}[0-9]{1,3}")
   if plate_1.match(postdata['plate']) or plate_2.match(postdata['plate']) or plate_3.match(postdata['plate']) or plate_4.match(postdata['plate']) or plate_5.match(postdata['plate']) or plate_6.match(postdata['plate']) or plate_7.match(postdata['plate']):
-    return '{"error":"False","stored":"True"}'
+    if rdb.execute("select (1) from plates where plate = '"+postdata['plate']+"' limit 1;"): 
+      return '{"error":"False","stored":"True"}'+postadata['plate']
+    else:
+      return '{"error":"False","stored":"False1"}'+postadata['plate']
   else:
-    return '{"error":"True","stored":"False"}'
+    return '{"error":"True","stored":"False"}'+postadata['plate']
 run(host='0.0.0.0', port=8080)
 
 '''
