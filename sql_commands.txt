@@ -1,0 +1,31 @@
+sql commands i ran:
+
+1.  
+CREATE TABLE plates ( 
+  p_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+  plate VARCHAR(15) NOT NULL,
+  p_foreign BOOLEAN NOT NULL
+);
+
+2.  
+CREATE TABLE data (
+   d_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+   p_index INTEGER NOT NULL,
+   time_1 BIGINT NOT NULL,
+   time_2 BIGINT,
+   speed float(3,2)
+ );
+3.
+CREATE TABLE roads (
+  r_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  r_name VARCHAR(255) NOT NULL,
+  r_limit INTEGER
+ );
+# '64 bit epoch: maximal value of (2^63)−1 about 292 billion years. 9223372036854776000 seconds = 292,471,208,677.5 Years'
+'32bit epoch: runs out in 2038 - only 22.2 Yearss left'
+'32 bit: (2**31-1)/(500000*365)=11.767 Years'
+'64 bit: (2**63-1)/(500000*365)= 50,539,024,859.5 years 50 billion years not acounting for rise in car useage'
+'value from Ontario Highway 401, Canada'
+'(max 64 bit value) / (max thourput per year)'
+
+

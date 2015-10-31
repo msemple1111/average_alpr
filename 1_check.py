@@ -2,31 +2,65 @@
 import json
 import re
 from bottle import route, run, request
-import MySQLdb
+import sqlite3 as sql
+import datetime
 
-db = MySQLdb.connect(host="localhost", port=3306, user="average_check", passwd="x9ojrs74VXCwapEmJ88XXIEg5", db="average_check") #http://ianhowson.com/a-quick-guide-to-using-mysql-in-python.html
-rdb = db.cursor()
+sql.connect('average_check.db')
+rdb = None
+try:
+    con = lite.connect('test.db')
+    
+    cur = con.cursor()    
+    cur.execute('SELECT SQLITE_VERSION()')
+    
+    data = cur.fetchone()
+    
+class validate:
+  def __init__(self):
+    
+  def plate(self, plate):
+    self.plate = self.plate.replace(" ", "")
+    self.plate_valid = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)|[A-Z][0-9]{1,3}[A-Z]{3}$)|([A-Z]{3}[0-9]{1,3}[A-Z]$)|([0-9]{1,4}[A-Z]{1,2}$)|([0-9]{1,3}[A-Z]{1,3}$)|([A-Z]{1,2}[0-9]{1,4}$)|([A-Z]{1,3}[0-9]{1,3}$)") #https://gist.github.com/danielrbradley/7567269
+    self.f_plate_valid = re.compile("^\d*[a-zA-Z][a-zA-Z\d]*$")
+    if self.plate_valid.match(self.plate):
+      return "british"
+    elif self.f_plate_valid.match(self.plate):
+      return "forign"
+    else:
+      return False
+    
+  def road(self, road):
+    try:
+      is_int = int(road)
+      return True
+    except:
+      return False
+    
+  def time(self, time):
+    try:
+      is_epoch = datetime.datetime.fromtimestamp(time).strftime('%Y-%m-%d %H:%M:%S')
+      
+
 @route('/', method='GET')
 def start():
   return "test home page"
+
+
 @route('/api/camera/1', method='POST')
 def camera_1():
-  #post data should look like '{"plate":"YS54 GBF","time": 1442862678}'
+  #post data should look like (in any order) '{"road":1, "plate":"YS54 GBF","time": 1442862678}'
+  #                                           (road id,   number plate,      time in unix epoch)
   rawpostdata = request.body.read()
   try:
     postdata = json.loads(rawpostdata.decode()) #had to decode cause of problem https://stackoverflow.com/questions/24069197/httpresponse-object-json-object-must-be-str-not-bytes
     plate = postdata['plate']
+    road = postdata['road']
+    time = postdata['time']
   except:
-    return '{"error":"True"}'
-  re_plate[1] = re.compile("[A-Z]{2}[0-9]{2}[A-Z]{3}") #https://gist.github.com/danielrbradley/7567269
-  re_plate[2] = re.compile("[A-Z][0-9]{1,3}[A-Z]{3}")
-  re_plate[3] = re.compile("[A-Z]{3}[0-9]{1,3}[A-Z]")
-  re_plate[4] = re.compile("[0-9]{1,4}[A-Z]{1,2}")
-  re_plate[5] = re.compile("[0-9]{1,3}[A-Z]{1,3}")
-  re_plate[6] = re.compile("[A-Z]{1,2}[0-9]{1,4}")
-  re_plate[7] = re.compile("[A-Z]{1,3}[0-9]{1,3}")
+    return '{"error":"True", "err_id": 1}'
+  plate_validate = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)|[A-Z][0-9]{1,3}[A-Z]{3}$)|([A-Z]{3}[0-9]{1,3}[A-Z]$)|([0-9]{1,4}[A-Z]{1,2}$)|([0-9]{1,3}[A-Z]{1,3}$)|([A-Z]{1,2}[0-9]{1,4}$)|([A-Z]{1,3}[0-9]{1,3}$)") #https://gist.github.com/danielrbradley/7567269
   
-  if re_plate[1].match(plate) or re_plate[2].match(plate) or re_plate[3].match(plate) or re_plate[4].match(plate) or re_plate[5].match(plate) or re_plate[6].match(plate) or re_plate[7].match(plate):
+  if plate_validate.match(plate):
     if rdb.execute("select (1) from plates where plate = '"+plate+"' limit 1;"): 
       lol = str(rdb.execute("select p_index from plates where plate = 'YS54 GBF';"))
       return lol
