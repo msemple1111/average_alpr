@@ -3,40 +3,35 @@ import json
 import re
 from bottle import route, run, request
 import sqlite3 as sql
+import datetime
 def error(err_no, err_desc):
-  error = str(err_no) + err_desc
-  with open('log.txt', 'a') as afile:
-    afile.write(error)
-  print(error)
+  return str(err_no+err_desc)
     
 class database:
   def __init__(self):
-    #try:
-    self.rdb = None
-    self.rdb = sql.connect('average_check_test.db')
-    self.ecx = self.rdb.cursor()    
-    #except:
-    #  error(2,'sql connect error')
+    try:
+      self.rdb = None
+      self.rdb = sql.connect('average_check_test.db')
+      self.ecx = rdb.cursor()    
+    except:
+      error(2,'sql connect error')
   
-  def check_plate(self, plate):
-    self.ecx.execute("select (1) from plates where plate = '"+plate+"' limit 1;")
-    if str(self.ecx.fetchone()) == "None":
-      return False
-    return True
-  
-  def get_plate_index(self, plate):
-    self.ecx.execute("select p_index from plates where plate = '"+plate+"';") 
-    return self.ecx.fetchone()
+  def plate(plate,self):
+    self.ecx.execute('')
+    self.data = ecx.fetchone()
+    if 
   
 class validate:
+  def __init__(self):
+    return
   def plate(self, plate):
-    self.plate = plate.replace(" ", "")
-    self.plate_valid = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)|([A-Z][0-9]{1,3}[A-Z]{3}$)|([A-Z]{3}[0-9]{1,3}[A-Z]$)|([0-9]{1,4}[A-Z]{1,2}$)|([0-9]{1,3}[A-Z]{1,3}$)|([A-Z]{1,2}[0-9]{1,4}$)|([A-Z]{1,3}[0-9]{1,3}$)") #https://gist.github.com/danielrbradley/7567269
-    self.f_plate_valid = re.compile("^[a-zA-Z.\d]{1,13}$")
+    self.plate = self.plate.replace(" ", "")
+    self.plate_valid = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)|[A-Z][0-9]{1,3}[A-Z]{3}$)|([A-Z]{3}[0-9]{1,3}[A-Z]$)|([0-9]{1,4}[A-Z]{1,2}$)|([0-9]{1,3}[A-Z]{1,3}$)|([A-Z]{1,2}[0-9]{1,4}$)|([A-Z]{1,3}[0-9]{1,3}$)") #https://gist.github.com/danielrbradley/7567269
+    self.f_plate_valid = re.compile("^\d*[a-zA-Z][a-zA-Z\d]*$")
     if self.plate_valid.match(self.plate):
-      return "British"
+      return "british"
     elif self.f_plate_valid.match(self.plate):
-      return "Forign"
+      return "forign"
     else:
       return False
     
@@ -50,9 +45,13 @@ class validate:
   def time(self, time):
     try:
       is_epoch = datetime.datetime.fromtimestamp(time).strftime('%Y-%m-%d %H:%M:%S')
-    except:
-      print('no no')
       
+'''
+@route('/', method='GET')
+def start():
+  return "test home page"
+
+
 @route('/api/camera/1', method='POST')
 def camera_1():
   #post data should look like (in any order) '{"road":1, "plate":"YS54 GBF","time": 1442862678}'
@@ -75,13 +74,8 @@ def camera_1():
       return '{"error":"True","stored":"False1"}'+plate
   else:
     return '{"error":"True","stored":"False"}'
-  
-valid = validate()
-print(valid.road('1'))
-#sqli = database()
-#print(sqli.check_plate('KU46KRQ'))
-#run(host='0.0.0.0', port=8080)
-
+run(host='0.0.0.0', port=8080)
+'''
 '''
 #/\b[a-z]{2}([1-9]|0[2-9]|6[0-9]|1[0-9])[a-z]{3}\b/i      # current series
 #/\b[A-HJ-NP-Y]\d{1,3}[A-Z]{3}\b/        # previous series

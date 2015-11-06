@@ -1,0 +1,38 @@
+End Valid Tests:
+
+curl -X POST www.domain.com/api/camera/1 -d '{"road":1, "plate":"YS54 GBF","time": 1442862678}'
+curl -X POST www.domain.com/api/camera/1 -d '{"road":1, "plate":"YS54 GBF","time": 1442862678}'
+
+Function Tests:
+  Valid:
+  1.
+    in:   valid = validate()
+          print(valid.road('0'))
+    out:  True
+
+  2.  
+    in:   valid = validate()
+          print(valid.road(5))
+    out:  True
+
+  InValid:
+  1.
+    in:   valid = validate()
+          print(valid.road('5 5'))
+    out:  False
+
+  2.
+    in:   valid = validate()
+          print(valid.road('5_u'))
+    out:  False
+
+  3.
+    in:   valid = validate()
+          print(valid.road('*5'))
+    out:  False
+
+  Valid:
+  1. 
+    in:   sqli = database()
+          print(sqli.check_plate('KU46KRQ'))
+    out:  True

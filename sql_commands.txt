@@ -4,23 +4,34 @@ sql commands i ran:
 CREATE TABLE plates ( 
   p_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
   plate VARCHAR(15) NOT NULL,
-  p_foreign BOOLEAN NOT NULL
+  p_foreign BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 2.  
 CREATE TABLE data (
    d_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    p_index INTEGER NOT NULL,
+   r_index INTEGER,
    time_1 BIGINT NOT NULL,
    time_2 BIGINT,
-   speed float(3,2)
+   speed float(5,2)
  );
+ 'max is 999.99 mph'
 3.
 CREATE TABLE roads (
   r_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   r_name VARCHAR(255) NOT NULL,
-  r_limit INTEGER
+  s_limit float(5,2) NOT NULL,
+  r_dist float(8,2) NOT NULL
  );
+ 
+ 'max is 999.99 mph'
+ 'meters max: 999,999.99'
+SELECT * FROM data LIMIT 5;
+
+SELECT * FROM data WHERE plate="Smith";
+ 
+ INSERT INTO data (plate) VALUES ();
 # '64 bit epoch: maximal value of (2^63)−1 about 292 billion years. 9223372036854776000 seconds = 292,471,208,677.5 Years'
 '32bit epoch: runs out in 2038 - only 22.2 Yearss left'
 '32 bit: (2**31-1)/(500000*365)=11.767 Years'
