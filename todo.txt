@@ -1,0 +1,6 @@
+todo:
+  * add time and enhance error catching 
+  * add get road index in database()
+  * add time calculation algorims and class with m/h and k/h to m/s calculation
+  * add data input table in database()
+  * add management client python file
