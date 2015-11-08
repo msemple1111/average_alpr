@@ -34,5 +34,9 @@ Function Tests:
   Valid:
   1. 
     in:   sqli = database()
+          print(sqli.check_plate('KU46 KRQ'))
+    out:  True
+  2. 
+    in:   sqli = database()
           print(sqli.check_plate('KU46KRQ'))
     out:  True

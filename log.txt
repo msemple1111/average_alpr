@@ -1,3 +1,35 @@
 Log file:
 
-2sql connect error2sql connect error2sql connect error
+2sql connect error2sql connect error2sql connect errorError no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 2  sql connect error
+Error no: 3  sql check_plates() error
+Error no: 5  get_plate_index() error
+Error no: 7  vaild.road() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 9  valid.postdata() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 9  valid.postdata() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 9  valid.postdata() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error

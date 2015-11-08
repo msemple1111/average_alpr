@@ -17,22 +17,33 @@ class plate_gen:
     return self.number
   
   def gen_uk(self):
-    letters = self.letter_gen(5)
-    numbers = self.number_gen(2)
-    return str(letters[0]+letters[1]+numbers[0]+numbers[1]+" "+letters[2]+letters[3]+letters[4])
+    self.letters = self.letter_gen(5)
+    self.numbers = self.number_gen(2)
+    return str(self.letters[0]+self.letters[1]+self.numbers[0]+self.numbers[1]+" "+self.letters[2]+self.letters[3]+self.letters[4])
+  
 
-def insert_plate(no):
-  import sqlite3
-  no_plate = plate_gen()
-  conn = sqlite3.connect('average_check_test.db')
-  for x in range (1,no):
-    plate = no_plate.gen_uk()
-    print(plate)
-    conn.execute("INSERT INTO plates (plate) VALUES ('"+plate+"');")
-    conn.commit()
-  conn.close()
+class database:
+  def __init__(self):
+    import sqlite3 as sql
+    self.rdb = None
+    self.rdb = sql.connect('average_check_test.db')
+    self.ecx = self.rdb.cursor()    
 
-insert_plate(2)
+  def plate(self, no):
+    no_plate = plate_gen()
+    for x in range(1, no):
+      self.plate = no_plate.gen_uk()
+      self.ecx.execute("INSERT INTO plates (plate) VALUES ('"+plate+"');")
+      return print(self.plate)
+
+  def road(self, r_name, s_limit, r_dist):
+    print(r_name)
+    self.ecx.execute("INSERT INTO roads (r_name, s_limit, r_dist) VALUES ('"+r_name+"',"+s_limit+","+r_dist+");")
+    self.rdb.commit()
+  
+insert = database()
+#insert.plate(2)
+insert.road("Clevedon Way", '15', '100')
 
 
 #print(no_plate.letter_gen(4))
