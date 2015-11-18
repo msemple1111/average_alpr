@@ -22,7 +22,7 @@ class plate_gen:
     return str(self.letters[0]+self.letters[1]+self.numbers[0]+self.numbers[1]+" "+self.letters[2]+self.letters[3]+self.letters[4])
   
 
-class database:
+class gen_database:
   def __init__(self):
     import sqlite3 as sql
     self.rdb = None
@@ -34,16 +34,17 @@ class database:
     for x in range(1, no):
       self.plate = no_plate.gen_uk()
       self.ecx.execute("INSERT INTO plates (plate) VALUES ('"+plate+"');")
-      return print(self.plate)
+      self.rdb.commit()
+      return self.plate
 
   def road(self, r_name, s_limit, r_dist):
-    print(r_name)
     self.ecx.execute("INSERT INTO roads (r_name, s_limit, r_dist) VALUES ('"+r_name+"',"+s_limit+","+r_dist+");")
     self.rdb.commit()
-  
-insert = database()
-#insert.plate(2)
-insert.road("Clevedon Way", '15', '100')
+    return r_name
+if __name__ == '__main__':
+insert = gen_database()
+#print(insert.plate(2))
+print(insert.road("Clevedon Way", '15', '100'))
 
 
 #print(no_plate.letter_gen(4))

@@ -8,10 +8,14 @@ def error(err_no, err_desc, end):
   error_dec = "Error no: " + str(err_no) + "  " + err_desc + "\n"
   with open('log.txt', 'a') as afile:
     afile.write(error_dec)
+  
   if end:
     raise SystemExit('Program Ended With Exit Code [1]')
     
-    
+class calculate:
+  def average_speed(self, time_1, time_2): #returns average speed in m/s after two time inputs
+    time = time_1 - time_2
+  
 class database: #the database class is anything with a database connection
   def __init__(self):
     try:
@@ -21,15 +25,18 @@ class database: #the database class is anything with a database connection
     except:
       error(2,'sql connect error', True)
   
-  def check_plate(self, plate):
+  def add_plate(self, plate, foreign=False):
     try:
+      foreign = str(foreign)
       self.ecx.execute("select (1) from plates where plate = '"+plate+"' limit 1;")
       if str(self.ecx.fetchone()) == "None":
-        return False
-      return True
+        self.ecx.execute("INSERT INTO plates (plate, p_foreign) VALUES ('"+plate+"', '"+foreign+"');")
+        self.rdb.commit()
+      self.ecx.execute("select p_index from plates where plate = '"+plate+"';")
+      return self.ecx.fetchone()[0]
     except:
        error(3,'sql check_plates() error', True)
-        
+
   def check_road_index(self, road):
     try:
       self.ecx.execute("select (1) from roads where r_index = '"+road+"' limit 1;")
@@ -38,13 +45,9 @@ class database: #the database class is anything with a database connection
       return True
     except:
        error(4,'sql check_road_index() error', True)
-  
-  def get_plate_index(self, plate):
-    try:
-      self.ecx.execute("select p_index from plates where plate = '"+plate+"';") 
-      return self.ecx.fetchone()
-    except:
-      error(5,'get_plate_index() error', True)
+        
+  #def 
+
   
 class validate: #the validate class is pre vaidating every input
   def plate(self, plate):
@@ -77,19 +80,13 @@ class validate: #the validate class is pre vaidating every input
       error(8, 'vaild.time() error', False)
       return False
       
-  def postdata(self,raw):
-    try:
-      postdata = json.loads(raw.decode()) #had to decode cause of problem https://stackoverflow.com/questions/24069197/httpresponse-object-json-object-must-be-str-not-bytes
-      return postdata['road'], postdata['plate'], postdata['time']
-    except:
-      error(9, 'valid.postdata() error', True)
       
 
 #valid = validate()
 #print(valid.road('1'))
-if __name__ == '__main__':
+#if __name__ == '__main__':
   #sqli = database()
   #print(sqli.get_plate_index(1))
-  valid = validate()
-  print(valid.road('1'))
+  #valid = validate()
+  #print(valid.road('1'))
 

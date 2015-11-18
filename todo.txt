@@ -1,6 +1,7 @@
 todo:
-  * add time and enhance error catching 
-  * add get road index in database()
-  * add time calculation algorims and class with m/h and k/h to m/s calculation
+  * add time to error log and enhance error catching 
+  * add a get_road_index() func to database() class in main.py
+  * add time calculation algorims to a new class with m/h and k/h to m/s calculation
+  * add m/h and k/h preference in roads table in db
   * add data input table in database()
   * add management client python file

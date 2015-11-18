@@ -8,3 +8,29 @@ Error no: 7  vaild.road() error
 Error no: 8  vaild.time() error
 Error no: 7  vaild.road() error
 Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 3  sql check_plates() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 3  sql check_plates() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
+Error no: 7  vaild.road() error
+Error no: 8  vaild.time() error
