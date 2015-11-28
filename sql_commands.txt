@@ -11,7 +11,7 @@ CREATE TABLE plates (
 CREATE TABLE data (
    d_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    p_index INTEGER NOT NULL,
-   r_index INTEGER,
+   r_id INTEGER,
    time_1 BIGINT NOT NULL,
    time_2 BIGINT,
    speed float(5,2)
@@ -19,7 +19,7 @@ CREATE TABLE data (
  'max is 999.99 mph'
 3.
 CREATE TABLE roads (
-  r_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  r_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   r_name VARCHAR(255) NOT NULL,
   s_limit float(5,2) NOT NULL,
   r_dist float(8,2) NOT NULL
@@ -32,6 +32,13 @@ SELECT * FROM data LIMIT 5;
 SELECT * FROM data WHERE plate="Smith";
  
  INSERT INTO data (plate) VALUES ();
+ 
+ SELECT d_index FROM data where p_index = 26 and r_id = 1 order by time_1 DESC limit 1;
+ 
+ UPDATE data SET   time_2 = 1442862974, speed = -14.005 WHERE d_index = 6;
+ 
+ 
+ 
 # '64 bit epoch: maximal value of (2^63)−1 about 292 billion years. 9223372036854776000 seconds = 292,471,208,677.5 Years'
 '32bit epoch: runs out in 2038 - only 22.2 Yearss left'
 '32 bit: (2**31-1)/(500000*365)=11.767 Years'

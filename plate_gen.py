@@ -1,7 +1,4 @@
 class plate_gen:
-  def __init__(self):
-    print()
-    
   def letter_gen(self,no):
     from random import randint
     self.letter = []
@@ -20,6 +17,13 @@ class plate_gen:
     self.letters = self.letter_gen(5)
     self.numbers = self.number_gen(2)
     return str(self.letters[0]+self.letters[1]+self.numbers[0]+self.numbers[1]+" "+self.letters[2]+self.letters[3]+self.letters[4])
+  
+  def gen_time(self):
+    from random import randint
+    time_1 = randint(1448000000, 1448600000)
+    time = randint(2, 20)
+    time_2 = time_1 + time
+    return time_1, time_2, time
   
 
 class gen_database:
@@ -42,9 +46,9 @@ class gen_database:
     self.rdb.commit()
     return r_name
 if __name__ == '__main__':
-insert = gen_database()
-#print(insert.plate(2))
-print(insert.road("Clevedon Way", '15', '100'))
+  gen = plate_gen()
+  #print(insert.plate(2))
+  print(gen.gen_uk())
 
 
 #print(no_plate.letter_gen(4))
