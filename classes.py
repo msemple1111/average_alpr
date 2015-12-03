@@ -5,6 +5,8 @@ from bottle import route, run, request
 import re
 import sqlite3 as sql
 
+def http_error(no):
+  one=1
 def error(err_no, err_desc, end):
   import datetime
   error_dec = "Time: "+str(datetime.datetime.now())+" Error no: " + str(err_no) + "  " + err_desc + "\n"
@@ -29,6 +31,13 @@ class database: #the database class is anything with a database connection
       self.rdb = None
       self.rdb = sql.connect('average_check_test.db')
       self.ecx = self.rdb.cursor()    
+      self.ecx.execute("PRAGMA synchronous = OFF")
+      self.ecx.execute("PRAGMA journal_mode = MEMORY")
+      self.ecx.execute("PRAGMA page_size = 4096")
+      self.ecx.execute("PRAGMA locking_mode = EXCLUSIVE")
+      self.ecx.execute("PRAGMA temp_store = MEMORY")
+      self.ecx.execute("PRAGMA count_changes = OFF;")
+
     except:
       error(2,'sql connect error', True)
   
@@ -49,8 +58,8 @@ class database: #the database class is anything with a database connection
         self.rdb.commit()
       self.ecx.execute("select p_index from plates where plate = '"+plate+"';")
       return self.ecx.fetchone()[0]
-    except:
-       error(4,'sql check_plates() error', True)
+    except Exception as e:
+       error(4,str(e)+'sql check_plates() error', True)
 
   def check_road_id(self, road):
     #try:
@@ -62,13 +71,13 @@ class database: #the database class is anything with a database connection
     #   error(6,str(e)+' sql check_road_id() error', True)
     
   def get_d_index(self, p_index, road):
-    self.ecx.execute("SELECT d_index FROM data where p_index = '"+str(p_index)+"' and r_id = '"+str(road)+"' order by time_1 DESC limit 1;")
-    fetch = self.ecx.fetchone()
-    if fetch == None:
-      http_error(404)
-      error(6,'get d_index error', False)
-      return -1
-    return fetch[0]
+    self.ecx.execute("select d_index from data where time_1 = (select max(time_1) from data where r_id = '"+str(road)+"' and p_index = '"+str(p_index)+"' limit 1) limit 1;")
+    return self.ecx.fetchone()
+    #if fetch == None:
+    #  http_error(404)
+    #  error(6,'get d_index error', False)
+    #  return -1
+    #return fetch[0]
 
   def get_time_1(self, p_index, road):
     self.ecx.execute("SELECT time_1 FROM data where p_index = '"+str(p_index)+"' and r_id = '"+str(road)+"' order by time_1 DESC limit 1;")

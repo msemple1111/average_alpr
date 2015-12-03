@@ -37,8 +37,11 @@ SELECT * FROM data WHERE plate="Smith";
  
  UPDATE data SET   time_2 = 1442862974, speed = -14.005 WHERE d_index = 6;
  
+select max(time_1) from data where r_id = 1
  
+select d_index from data where time_1 = (select max(time_1) from data where r_id = 1 and p_index = 27) limit 1;
  
+SELECT d_index FROM data where p_index = 'p_index' and r_id = 'road' order by time_1 DESC limit 1
 # '64 bit epoch: maximal value of (2^63)−1 about 292 billion years. 9223372036854776000 seconds = 292,471,208,677.5 Years'
 '32bit epoch: runs out in 2038 - only 22.2 Yearss left'
 '32 bit: (2**31-1)/(500000*365)=11.767 Years'
