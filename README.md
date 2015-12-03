@@ -1,15 +1,15 @@
-##Instalation:
+## Instalation:
 This guide is designed for linux and mac.
 This program is deigned for Python 3.
 Install either through a virtualenv or thought your normal python install.
-###Prrequsits
--python 3
--virtualenv
-'''
+### Prrequsits
+- python 3
+- virtualenv
+```
 pip install virtualenv
-'''
+```
 
-###Method 1
+### Method 1
 Recogmended instaltion method
 
 1. create the virtual enviroment and cd into it
