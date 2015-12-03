@@ -2,5 +2,5 @@ bin/*
 include/*
 lib/*
 __pycache__/*
-average_check.db
-average_check_test.db
+*.db
+*.pyc
