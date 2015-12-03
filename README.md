@@ -18,11 +18,10 @@ Recommended installation method
 git clone https://gitlab.com/msemple1111/average_check.git avg_alpr
 ```
 
-2. cd into directory and create the virtual environment
+2. create the virtual environment and cd into it
 ```
+virtualenv -p python3 avg_alpr
 cd avg_alpr
-virtualenv -p python3
-
 ```
 
 
