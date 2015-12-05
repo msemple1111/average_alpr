@@ -19,3 +19,5 @@ CREATE TABLE roads (
   s_limit float(5,2) NOT NULL,
   r_dist float(8,2) NOT NULL
  );
+
+INSERT INTO roads (r_name, s_limit, r_dist) VALUES ("A Road",15,100);

@@ -25,30 +25,33 @@ Recommended installation method
 git clone https://gitlab.com/msemple1111/average_check.git avg_alpr
 ```
 
-2. create the virtual environment and cd into it
+2. create the virtual environment, cd into it and Activate virtualenv
 ```
 virtualenv -p python3 avg_alpr
 cd avg_alpr
 ```
 
-3. Activate virtualenv
 ```
 source bin/activate
 ```
 
-4. Install Python Dependancys
+3. Install Python Dependancys
 ```
-pip install sqlite3 tornado flask uwsgi
-```
-
-5. Populate sqlite database
-'''
-sqlite3 average_check
-'''
-```
-sqlite> .read create.sql
+pip install tornado flask uwsgi flask-httpauth
 ```
 
-### Method B - Python 3
+4. Populate sqlite database
+'''
+sqlite3 average_check.db
+'''
+```
+sqlite>.read create.sql
+sqlite>.exit
+```
+
+
+
+
+
 
 

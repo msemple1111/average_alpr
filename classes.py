@@ -1,6 +1,5 @@
 #!/bin/python
 import json
-from bottle import route, run, request
 #from webserver import http_error
 import re
 import sqlite3 as sql
@@ -65,13 +64,13 @@ class database: #the database class is anything with a database connection
     #try:
     self.ecx.execute("select (1) from roads where r_id = '"+str(road)+"' limit 1;")
     if str(self.ecx.fetchone()) == "None":
-      error(5,'sql check_road_id() error', False)
+      error(5,'sql check_road_id() error (no road)', True)
     return road
     #except Exception as e:
     #   error(6,str(e)+' sql check_road_id() error', True)
     
   def get_d_index(self, p_index, road):
-    self.ecx.execute("select d_index from data where time_1 = (select max(time_1) from data where r_id = '"+str(road)+"' and p_index = '"+str(p_index)+"' limit 1) limit 1;")
+    self.ecx.execute("SELECT d_index FROM data where p_index = '"+str(p_index)+"' and r_id = '"+str(road)+"' order by time_1 DESC limit 1;")
     return self.ecx.fetchone()
     #if fetch == None:
     #  http_error(404)
