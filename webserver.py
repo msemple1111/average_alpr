@@ -42,7 +42,7 @@ def cam_1():
   #log p_id to sqlite data with r_id
   #post data should look like (in any order) '{"road":1, "plate":"YS54 GBF", "time": 1442862678}'
                                              #(road id,   number plate,      time in unix epoch)
-  return jsonify("{'error': False}")
+  return jsonify({'error': False})
 
 @application.route('/api/camera/2', methods=['POST'])
 def cam_2():
@@ -65,7 +65,7 @@ def cam_2():
   speed = calc.speed_increase(car_speed, s_limit)
   
   sqlite.record_time_2(d_index, time_2, speed)
-  return jsonify("{'error': False}") #return green light
+  return jsonify({'error': False}) #return green light
 
 def http_error(error_no):
   abort(error_no)
