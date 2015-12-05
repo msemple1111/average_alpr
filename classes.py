@@ -29,7 +29,7 @@ class database: #the database class is anything with a database connection
   def __init__(self):
     try:
       self.rdb = None
-      self.rdb = sql.connect('average_check_test.db')
+      self.rdb = sql.connect('average_check.db')
       self.ecx = self.rdb.cursor()    
       self.ecx.execute("PRAGMA synchronous = OFF")
       self.ecx.execute("PRAGMA journal_mode = MEMORY")

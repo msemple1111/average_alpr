@@ -1,1 +1,6 @@
 Log file:
+Time: 2015-12-05 12:07:37.437491 Error no: 4  no such table: platessql check_plates() error
+Time: 2015-12-05 12:07:48.839048 Error no: 4  no such table: platessql check_plates() error
+Time: 2015-12-05 12:08:12.229871 Error no: 4  no such table: platessql check_plates() error
+Time: 2015-12-05 12:18:12.017324 Error no: 4  no such table: platessql check_plates() error
+Time: 2015-12-05 12:19:52.222385 Error no: 5  sql check_road_id() error

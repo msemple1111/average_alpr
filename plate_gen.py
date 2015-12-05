@@ -30,7 +30,7 @@ class gen_database:
   def __init__(self):
     import sqlite3 as sql
     self.rdb = None
-    self.rdb = sql.connect('average_check_test.db')
+    self.rdb = sql.connect('average_check.db')
     self.ecx = self.rdb.cursor()    
 
   def plate(self, no):
