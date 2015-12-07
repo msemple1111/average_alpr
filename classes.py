@@ -3,6 +3,7 @@ import json
 #from webserver import http_error
 import re
 import sqlite3 as sql
+from uuid import UUID
 
 def http_error(no):
   one=1
@@ -128,12 +129,12 @@ class validate: #the validate class is pre vaidating every input
       error(11,'valid.plate() error', False)
       return None
         
-  def road(self, road):
+  def site(self, site):
     try:
-      road_is_int = int(road)
-      return road_is_int
+      site_is_str = str(site)
+      return site_is_str
     except Exception as e:
-      error(12, str(e)+' vaild.road() error', False)
+      error(12, str(e)+' vaild.site() error', False)
       return None
     
   def time(self, time):
@@ -143,6 +144,39 @@ class validate: #the validate class is pre vaidating every input
     except Exception as e:
       error(13, str(e)+' vaild.time() error', False)
       return False
+    
+  def confidence(self, confidence):
+    try:
+      confidence_is_float = float(confidence)
+      if 0 < confidence_is_float <= 100:
+        return confidence_is_float
+    except Exception as e:
+      error(14, str(e)+' vaild.confidence() error', False)
+      return False
+    
+  def cam(self, cam):
+    try:
+      cam_is_int = int(cam)
+      return cam_is_int
+    except Exception as e:
+      error(15, str(e)+' vaild.cam() error', False)
+      return False
+
+def uuid(self, uuid): #https://gist.github.com/ShawnMilo/7777304
+    try:
+        val = UUID(uuid_string, version=4)
+    except ValueError:
+        # If it's a value error, then the string 
+        # is not a valid hex code for a UUID.
+        error(15, str(e)+' vaild.cam() error', False)
+        return False
+
+    # If the uuid_string is a valid hex code, 
+    # but an invalid uuid4,
+    # the UUID.__init__ will convert it to a 
+    # valid uuid4.
+
+    return uuid
       
       
 

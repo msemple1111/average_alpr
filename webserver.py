@@ -27,18 +27,27 @@ def internal_error_500(error):
 def hello():
   return "<h1 style='color:blue'>Hello There!,,G</h1>"
 
-@application.route('/api/camera/1', methods=['POST'])
-def cam_1():
+@application.route('/api/camera', methods=['POST'])
+def cam():
   valid = validate()
-  road_id = valid.road(request.json['road'])
-  p_name, p_forign = valid.plate(request.json['plate'])
-  time_1 = valid.time(request.json['time'])
-  
+  site_id = valid.site(request.json['site_id'])
+  cam_id = valid.cam(request.json['camera_id'])
+  uuid = valid.uuid(request.json['uuid'])
+  epoch_time = valid.time(request.json['epoch_time'])
   sqlite = database()
-  p_id = sqlite.add_plate(p_name, p_forign)
-  r_id = sqlite.check_road_id(road_id)
-    
-  sqlite.record_time_1(p_id,r_id,time_1)
+  calc = calculate()
+  curr_cam_m = sqlite.curr_cam(cam_id, site_id)
+  plates = []
+  for plate in range(len(request.json['results'])):
+    p_name, p_forign = valid.plate(request.json['results'][plate]['plate'])
+    p_confidence = valid.confidence(request.json['results'][plate]['confidence'])
+    p_id = sqlite.add_plate(p_name, p_forign)
+    plates.append(p_name, p_forign, p_confidence)
+    time_1, prev_cam_m = sqlite.last_cam(p_id, site_id)
+    r_dist = prev_cam_m - curr_cam_m
+    car_speed = calc.average_speed(time_1, time_2, r_dist)
+    speed = calc.speed_increase(car_speed, s_limit)
+    sqlite.record_time(cam_id,p_id,site_id,time)
   #log p_id to sqlite data with r_id
   #post data should look like (in any order) '{"road":1, "plate":"YS54 GBF", "time": 1442862678}'
                                              #(road id,   number plate,      time in unix epoch)
@@ -55,6 +64,7 @@ def cam_2():
   sqlite = database() #initlising the database class
   p_id = sqlite.add_plate(p_name, p_forign) #the plate id
   r_id = sqlite.check_road_id(road_id) #the road id
+  
   d_index = sqlite.get_d_index(p_id, r_id) #the data storage id
   time_1 = sqlite.get_time_1(p_id, r_id) # time in sec
   r_dist = sqlite.get_r_dist(r_id) #road distance in m
