@@ -2,27 +2,35 @@ sql commands i ran:
 
 1.  
 CREATE TABLE plates ( 
-  p_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+  p_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
   plate VARCHAR(15) NOT NULL,
   p_foreign BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 2.  
-CREATE TABLE data (
+CREATE TABLE data ( p_id, cam_id, site_id, uuid, time
    d_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-   p_index INTEGER NOT NULL,
-   r_id INTEGER,
-   time_1 BIGINT NOT NULL,
-   time_2 BIGINT,
-   speed float(5,2)
+   p_id INTEGER NOT NULL,
+   uuid Char(36) NOT NULL,
+   site_id VarChar(255) NOT NULL,
+   time BIGINT NOT NULL,
+   cam_id INT NOT NULL,
+   speed float(4,2)
  );
  'max is 999.99 mph'
-3.
-CREATE TABLE roads (
-  r_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  r_name VARCHAR(255) NOT NULL,
+ 
+CREATE TABLE cams (
+cam_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+cam_lenght float(6,2) NOT NULL,
+s_id INTEGER NOT NULL
+)
+ 'cam_lenght is the lenght along the road the cam is comapred to first cam'
+ 
+4.
+CREATE TABLE sites (
+  s_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  site_id VARCHAR(255) NOT NULL,
   s_limit float(5,2) NOT NULL,
-  r_dist float(8,2) NOT NULL
  );
  
  'max is 999.99 mph'
