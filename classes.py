@@ -41,14 +41,22 @@ class database: #the database class is anything with a database connection
     except:
       error(2,'sql connect error', True)
   
-  def record_time_1(self, p_index, r_id, time_1):
+  def record_time(self, cam_id, p_id, site_id, uuid, time):
     try:
-      self.ecx.execute("INSERT INTO data (p_index, r_id, time_1) VALUES ('"+str(p_index)+"', '"+str(r_id)+"', '"+str(time_1)+"');")
+      self.ecx.execute("INSERT INTO data (p_id, cam_id, site_id, uuid, time) VALUES ('"+str(p_index)+"', '"+str(r_id)+"', '"+str(time_1)+"');")
       self.rdb.commit()
     except Exception as e:
       error(3,str(e)+' sql record_time_1() error', False)
     
   
+  def find_site(self, site_id):
+    try:
+      foreign = str(foreign)
+      self.ecx.execute("select s_id, s_limit from sites where site_id = '"+site_id+"' limit 1;")
+      return self.ecx.fetchone()[0], self.ecx.fetchone()[1]
+    except Exception as e:
+       error(4,str(e)+'sql check_plates() error', True)
+        
   def add_plate(self, plate, foreign=False):
     try:
       foreign = str(foreign)
