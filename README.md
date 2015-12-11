@@ -48,14 +48,9 @@ pip install virtualenv
 - openalpr installed
 [install OpenAlpr](https://github.com/openalpr/openalpr/)
 
-- SQLite or PostgreSQL
+- SQLite
 [Install SQLite](http://www.tutorialspoint.com/sqlite/sqlite_installation.htm)
 
-[Install PostgreSQL on Debian/Ubuntu Linux](http://www.stuartellis.eu/articles/postgresql-setup/)
-
-[Install PostgreSQL on CentOS/RHEL Linux](https://wiki.postgresql.org/wiki/YUM_Installation)
-
-[Install PostgreSQL on Mac](http://postgresapp.com/)
 
 ### Section 1 - Using Virtualenv, SQLite with Tornado Web Server
 Recommended installation method
@@ -79,7 +74,7 @@ source bin/activate
 
 Install Python Dependancys
 ```
-pip install tornado flask uwsgi flask-httpauth
+pip install tornado flask
 ```
 
 Populate sqlite database
@@ -87,10 +82,17 @@ Populate sqlite database
 sqlite3 average_check.db < create.sql
 '''
 
-Run webserver
+Start webserver (Press [ctrl] + [c] to stop)
 ```
 python tornado_start.py
 ```
+
+
+Open a new termainl Window and Test WebServer is working
+```
+python bench.py
+```
+
 
 2. openalpr config
 
