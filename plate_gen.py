@@ -1,3 +1,4 @@
+from random import randint
 class plate_gen:
   def __init__(self):
     from random import randint
@@ -19,8 +20,10 @@ class plate_gen:
     return str(letters[0]+letters[1]+numbers[0]+numbers[1]+" "+letters[2]+letters[3]+letters[4])
   
   def gen_time(self):
-    time_1 = randint(1448000000, 1448600000)
-    return time_1, (time_1 + randint(2, 20))
+    return randint(1448000000, 1448600000)
+  
+  def gen_more_time(self, time_1):
+    return (time_1 + randint(1, 20))
   
 
 class gen_database:

@@ -8,29 +8,30 @@ CREATE TABLE plates (
 );
 
 2.  
-CREATE TABLE data ( p_id, cam_id, site_id, uuid, time
+CREATE TABLE data (
    d_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    p_id INTEGER NOT NULL,
    uuid Char(36) NOT NULL,
-   site_id VarChar(255) NOT NULL,
+   s_id INT NOT NULL,
    time BIGINT NOT NULL,
    cam_id INT NOT NULL,
    speed float(4,2)
  );
  'max is 999.99 mph'
- 
+
+3. 
 CREATE TABLE cams (
 cam_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-cam_lenght float(6,2) NOT NULL,
+cam_m float(6,2) NOT NULL,
 s_id INTEGER NOT NULL
-)
+);
  'cam_lenght is the lenght along the road the cam is comapred to first cam'
  
 4.
 CREATE TABLE sites (
   s_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   site_id VARCHAR(255) NOT NULL,
-  s_limit float(5,2) NOT NULL,
+  s_limit float(5,2) NOT NULL
  );
  
  'max is 999.99 mph'
@@ -56,5 +57,8 @@ SELECT d_index FROM data where p_index = 'p_index' and r_id = 'road' order by ti
 '64 bit: (2**63-1)/(500000*365)= 50,539,024,859.5 years 50 billion years not acounting for rise in car useage'
 'value from Ontario Highway 401, Canada'
 '(max 64 bit value) / (max thourput per year)'
+
+select cam_m from cams where s_id = 1 and cam_id = 1 limit 1;
+SELECT time, cam_id FROM data where p_id = 1 and s_id = '"+str(s_id)+"' order by d_index DESC limit 1;
 
 

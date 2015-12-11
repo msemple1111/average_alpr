@@ -30,27 +30,30 @@ def hello():
 
 @application.route('/api/camera', methods=['POST'])
 def cam():
-  request_data = json.loads(request.json)
+  request_data = request.json
   valid = validate()
   site_id = valid.site(request_data['site_id'])
   cam_id = valid.cam(request_data['camera_id'])
   uuid = valid.uuid(request_data['uuid'])
-  epoch_time = valid.time(request_data['epoch_time'])
+  time_2 = valid.time(request_data['epoch_time'])
   sqlite = database()
   calc = calculate()
-  curr_cam_m = sqlite.curr_cam(cam_id, site_id)#
-  plates = []
-  s_limit, s_id = sqlite.find_site(site_id)
-  for plate in range(0,len(request_data['results'])):
-    p_name, p_forign = valid.plate(request_data['results'][plate]['plate'])
-    p_confidence = valid.confidence(request_data['results'][plate]['confidence'])
-    p_id = sqlite.add_plate(p_name, p_forign)#
-    plates.append(p_name, p_forign, p_confidence)#
-    time_1, prev_cam_m = sqlite.last_cam(p_id, site_id)#
-    r_dist = prev_cam_m - curr_cam_m
-    car_speed = calc.average_speed(time_1, time_2, r_dist)
-    speed = calc.speed_increase(car_speed, s_limit)
-    sqlite.record_time(cam_id, p_id, site_id, uuid, time)#
+  s_id, s_limit = sqlite.find_site(site_id)
+  curr_cam_m = sqlite.get_cam_m(cam_id, s_id)
+  for plate_no in range(0,len(request_data['results'])):
+    plate, p_forign = valid.plate(request_data['results'][plate_no]['plate'])
+    p_confidence = valid.confidence(request_data['results'][plate_no]['confidence'])
+    p_id = sqlite.add_plate(plate, p_forign)#
+    cam_first = sqlite.cam_first(curr_cam_m, time_2, p_id, s_id)
+    if cam_first:
+      sqlite.record_first(p_id, cam_id, s_id, uuid, time_2)
+    else:
+      time_1, prev_cam_id = sqlite.last_cam(p_id, s_id)#
+      prev_cam_m = sqlite.get_cam_m(prev_cam_id, s_id)
+      r_dist = prev_cam_m - curr_cam_m
+      car_speed = calc.average_speed(time_2, time_1, r_dist)
+      speed = calc.speed_increase(car_speed, s_limit)
+      sqlite.record_time(p_id, cam_id, s_id, uuid, time_2, speed)#
   #log p_id to sqlite data with r_id
   #post data should look like (in any order) '{"road":1, "plate":"YS54 GBF", "time": 1442862678}'
                                              #(road id,   number plate,      time in unix epoch)

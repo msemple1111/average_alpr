@@ -2,16 +2,23 @@ from plate_gen import plate_gen
 import requests
 import json
 import urllib3
+import uuid
 gen = plate_gen()
 http = urllib3.PoolManager()
-url_1 = 'http://localhost:7000/api/camera/1'
-url_2 = 'http://localhost:7000/api/camera/2'
+url = 'http://localhost:7000/api/camera'
+#url_2 = 'http://localhost:7000/api/camera/2'
 road = 1
+#plate = "HT57 GHU"
 headers = {'Content-Type': 'application/json'}
 
-def make_payload(road, plate, time):
-  data = {"version":2,"data_type":"alpr_results",
+def make_payload(cam_id, plate, time):
+  cam_uuid = str(uuid.uuid4())
+  data = {"version":2,
+          "data_type":"alpr_results",
           "epoch_time":time,
+          "site_id":"Cdon Way",
+          "camera_id":cam_id,
+          "uuid":cam_uuid,
           "img_width":480,"img_height":640,
           "processing_time_ms":160.482773,
           "regions_of_interest":[],
@@ -38,25 +45,32 @@ def make_payload(road, plate, time):
       }
     ]}
 
-  return json.dumps(data)
+  return str(json.dumps(data))
 
 #using the requests framwork
 def run():
-  time_1, time_2 = gen.gen_time()
   plate = gen.gen_uk()
-  payload_1 = json.dumps({"road":1, "plate":plate, "time": time_1})
-  payload_2 = {"road":1, "plate": plate, "time": time_2}
-  r_2 = requests.post(url_2, json=payload_2, headers=headers)
-  r_1 = requests.post(url_1, json=payload_1, headers=headers)
+  time_1 = gen.gen_time()
+  time_2 = gen.gen_more_time(time_1)
+  time_3 = gen.gen_more_time(time_2)
+  time_4 = gen.gen_more_time(time_3)
+  payload_1 = make_payload(1, plate, time_1)
+  payload_2 = make_payload(2, plate, time_2)
+  payload_3 = make_payload(3, plate, time_3)
+  payload_4 = make_payload(4, plate, time_4)
+  r_1 = requests.post(url, data=payload_1, headers=headers)
+  r_2 = requests.post(url, data=payload_2, headers=headers)
+  r_3 = requests.post(url, data=payload_3, headers=headers)
+  r_4 = requests.post(url, data=payload_4, headers=headers)
   
 #using the urllib3 framwork
 def run_2():
   time_1, time_2 = gen.gen_time()
-  plate = gen.gen_uk()
+  #plate = gen.gen_uk()
   payload_1 = make_payload(road, plate, time_1)
   payload_2 = make_payload(road, plate, time_2)
-  r1 = http.request('POST', url_1, headers=headers, body=payload_1)
-  r2 = http.request('POST', url_2, headers=headers, body=payload_2)
+  r1 = http.request('POST', url, headers=headers, body=str(payload_1))
+  r2 = http.request('POST', url, headers=headers, body=str(payload_2))
 
 if __name__ == '__main__':
-  run_2()
+  run()
