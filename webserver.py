@@ -1,6 +1,7 @@
 #!bin/python
 #import classes
 from classes import *
+from cam import cam
 from flask import Flask, jsonify, request, abort, make_response
 import json
 application = Flask(__name__)
@@ -27,7 +28,6 @@ def internal_error_500(error):
 @application.route("/", methods=['GET','POST'])
 def hello():
   return "<h1 style='color:blue'>Hello There!,,G</h1>"
-
 
 @application.route('/api/camera', methods=['POST'])
 def main():
