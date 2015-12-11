@@ -4,32 +4,32 @@ For each new road, a new instance should be used, either throuth docker or a new
 The HTTP Server (this program) can either be in the same machine as the openalpr daemon or on a seperate machine.
 
 
-    +------------------+                             +------------------+           
-    |                  |  MJPEG               MJPEG  |                  |             
-    |  Network Camera  | <---+                 +---> |  Network Camera  |             
-    |                  |     |                 |     |                  |           
-    +------------------+     |                 |     +-------+----------+                                                          
-                             |                 |                          
+    +------------------+                             +------------------+
+    |                  |  MJPEG               MJPEG  |                  |
+    |  Network Camera  | <---+                 +---> |  Network Camera  |
+    |                  |     |                 |     |                  |      
+    +------------------+     |                 |     +-------+----------+                                                      
+                             |                 |                          
                              |                 |                                 
                              |      POST       |                              
-                             |      +----------|------------------------+                                
-                             |      |          |            POST        | 
-                             |      |          |            +------+    |                              
-                             |      |          |            |      |    |      
-                   +---------+------+      +---+------------+      |    |              
-                   |                |      |                |      |    | 
-                   | alprd server 1 |      | alprd server 2 |      |    | 
-                   |                |      |                |      |    |  
-                   +-----------+----+------+----+-----------+      |    | 
-                               |                  |           +----+----+-----+          
-                               |      Docker      |           |               |                      
-                               |                  |           |   HTTP Server |                           
-                               |                  |           |               |          
-                               +------+-----------+-----------+-----------+---+ 
-                                      |                                   |                       
-                                      |           Host Machine            |                   
-                                      |                                   |                         
-                                      +-----------------------------------+ 
+                             |------+----------|------------------------+
+                             |      |          |            POST   |    | 
+                             |      |          |            +------+    |                              
+                             |      |          |            |      |    |
+                   +---------+------+      +---+------------+      |    |
+                   |                |      |                |      |    | 
+                   | alprd server 1 |      | alprd server 2 |      |    | 
+                   |                |      |                |      |    |  
+                   +-----------+----+------+----+-----------+      |    |
+                               |                  |           +----+----+-----+
+                               |      Docker      |           |               |                      
+                               |                  |           |   HTTP Server |                           
+                               |                  |           |               |
+                               +------+-----------+-----------+-----------+---+
+                                      |                                   |
+                                      |           Host Machine            |
+                                      |                                   |
+                                      +-----------------------------------+
                                
 ## Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
@@ -48,14 +48,9 @@ pip install virtualenv
 - openalpr installed
 [install OpenAlpr](https://github.com/openalpr/openalpr/)
 
-- SQLite or PostgreSQL
+- SQLite
 [Install SQLite](http://www.tutorialspoint.com/sqlite/sqlite_installation.htm)
 
-[Install PostgreSQL on Debian/Ubuntu Linux](http://www.stuartellis.eu/articles/postgresql-setup/)
-
-[Install PostgreSQL on CentOS/RHEL Linux](https://wiki.postgresql.org/wiki/YUM_Installation)
-
-[Install PostgreSQL on Mac](http://postgresapp.com/)
 
 ### Section 1 - Using Virtualenv, SQLite with Tornado Web Server
 Recommended installation method
@@ -79,7 +74,7 @@ source bin/activate
 
 Install Python Dependancys
 ```
-pip install tornado flask uwsgi flask-httpauth
+pip install tornado flask
 ```
 
 Populate sqlite database
@@ -87,10 +82,17 @@ Populate sqlite database
 sqlite3 average_check.db < create.sql
 '''
 
-Run webserver
+Start webserver (Press [ctrl] + [c] to stop)
 ```
 python tornado_start.py
 ```
+
+
+Open a new termainl Window and Test WebServer is working
+```
+python bench.py
+```
+
 
 2. openalpr config
 
@@ -135,9 +137,3 @@ store_plates_location = /var/lib/openalpr/plateimages/
 upload_data = 0
 upload_address = http://localhost:7000/api/camera/
 ```
-
-
-
-
-
-
