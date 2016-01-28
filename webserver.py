@@ -1,6 +1,4 @@
 #!bin/python
-#import classes
-from classes import *
 from cam import cam
 from flask import Flask, jsonify, request, abort, make_response
 import json
