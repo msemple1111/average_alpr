@@ -1,13 +1,13 @@
 sql commands i ran:
 
-1.  
-CREATE TABLE plates ( 
-  p_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+1.
+CREATE TABLE plates (
+  p_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   plate VARCHAR(15) NOT NULL,
   p_foreign BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-2.  
+2.
 CREATE TABLE data (
    d_index INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    p_id INTEGER NOT NULL,
@@ -17,42 +17,43 @@ CREATE TABLE data (
    cam_id INT NOT NULL,
    speed float(4,2)
  );
- 'max is 999.99 mph'
+ 'max is 999.99 mph over speed limit'
 
-3. 
+3.
 CREATE TABLE cams (
 cam_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 cam_m float(6,2) NOT NULL,
 s_id INTEGER NOT NULL
 );
  'cam_lenght is the lenght along the road the cam is comapred to first cam'
- 
+
 4.
 CREATE TABLE sites (
   s_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   site_id VARCHAR(255) NOT NULL,
   s_limit float(5,2) NOT NULL
  );
- 
+
  'max is 999.99 mph'
  'meters max: 999,999.99'
 SELECT * FROM data LIMIT 5;
 
 SELECT * FROM data WHERE plate="Smith";
- 
+
  INSERT INTO data (plate) VALUES ();
- 
+
  SELECT d_index FROM data where p_index = 26 and r_id = 1 order by time_1 DESC limit 1;
- 
+
  UPDATE data SET   time_2 = 1442862974, speed = -14.005 WHERE d_index = 6;
- 
+
 select max(time_1) from data where r_id = 1
- 
+
 select d_index from data where time_1 = (select max(time_1) from data where r_id = 1 and p_index = 27) limit 1;
- 
+SELECT * FROM data where speed > 0 order by d_index DESC;
+
 SELECT d_index FROM data where p_index = 'p_index' and r_id = 'road' order by time_1 DESC limit 1
 # '64 bit epoch: maximal value of (2^63)−1 about 292 billion years. 9223372036854776000 seconds = 292,471,208,677.5 Years'
-'32bit epoch: runs out in 2038 - only 22.2 Yearss left'
+'32bit epoch: runs out in 2038 - only 22.2 Years left'
 '32 bit: (2**31-1)/(500000*365)=11.767 Years'
 '64 bit: (2**63-1)/(500000*365)= 50,539,024,859.5 years 50 billion years not acounting for rise in car useage'
 'value from Ontario Highway 401, Canada'
@@ -60,5 +61,3 @@ SELECT d_index FROM data where p_index = 'p_index' and r_id = 'road' order by ti
 
 select cam_m from cams where s_id = 1 and cam_id = 1 limit 1;
 SELECT time, cam_id FROM data where p_id = 1 and s_id = '"+str(s_id)+"' order by d_index DESC limit 1;
-
-

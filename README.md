@@ -13,12 +13,12 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
                              |                 |                                 
                              |      POST       |                              
                              |------+----------|------------------------+
-                             |      |          |            POST   |    | 
+                             |      |          |            POST   |    |
                              |      |          |            +------+    |                              
                              |      |          |            |      |    |
                    +---------+------+      +---+------------+      |    |
-                   |                |      |                |      |    | 
-                   | alprd server 1 |      | alprd server 2 |      |    | 
+                   |                |      |                |      |    |
+                   | alprd server 1 |      | alprd server 2 |      |    |
                    |                |      |                |      |    |  
                    +-----------+----+------+----+-----------+      |    |
                                |                  |           +----+----+-----+
@@ -30,7 +30,7 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
                                       |           Host Machine            |
                                       |                                   |
                                       +-----------------------------------+
-                               
+
 ## Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
 This program is deigned for Python 3.
@@ -78,23 +78,24 @@ pip install tornado flask
 ```
 
 Populate sqlite database
-'''
-sqlite3 average_check.db < create.sql
-'''
 
-Start webserver (Press [ctrl] + [c] to stop)
+```
+cat create.sql | sqlite3 average_check.db
+```
+
+Start the web server (Press [ctrl] + [c] to stop)
 ```
 python tornado_start.py
 ```
 
 
-Open a new termainl Window and Test WebServer is working
+Open a new terminal Window and Test WebServer is working
 ```
 python bench.py
 ```
 
 
-2. openalpr config
+2. Open alpr config
 
 The config file for openalpr should be like this:
 
@@ -116,7 +117,7 @@ site_id = bromley-w
 ; each unique stream should be defined as stream = [url]
 
 ; these are the cameras placed on the road
-; remember the order you put these in - they corispond to the camera number 
+; remember the order you put these in - they corispond to the camera number
 ; you will need to set the distances for these cameras later in the config
 stream = http://123.45.67.89/first_video_stream.mjpeg
 stream = http://98.76.54.32/second_video_stream.mjpeg
@@ -127,7 +128,7 @@ stream = http://98.76.54.32/second_video_stream.mjpeg
 topn = 1
 
 ; Determines whether images that contain plates should be stored to disk
-; You should leave this on -  then you can receive the images later for prosecution 
+; You should leave this on -  then you can receive the images later for prosecution
 store_plates = 0
 store_plates_location = /var/lib/openalpr/plateimages/
 

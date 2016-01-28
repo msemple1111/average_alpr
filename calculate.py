@@ -6,9 +6,9 @@ class calculate:
       return dist/time #return speed = distance / time
     except:
       error(20,'calculate.average_speed() error', True)
-  
+
   def speed_increase(self, car_speed, road_speed):
     try:
-      return car_speed - road_speed #return speed relative to speed limit in m/s 
+      return car_speed - road_speed #return speed relative to speed limit in m/s
     except:
-      error(20,'calculate.average_speed() error', True)
+      error(21,'calculate.average_speed() error', True)
