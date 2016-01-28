@@ -1,76 +1,76 @@
 from plate_gen import plate_gen
-#import time
-#import threading
 import requests
-from random import randint
-#import timeit 
-gen = plate_gen()
-#url_1 = 'http://localhost:8080/api/camera/1'
-#url_2 = 'http://localhost:8080/api/camera/2'
-#headers = {'content-type': 'application/json'}
-
-
-#  def letter_gen():
-#    return str(chr(randint(65,90))
-      
-#  def number_gen(self,no):
-#    from random import randint
-#    self.number = []
-#    self.number.append(str(randint(0,9)))
-#    self.number.append(str(randint(5,6)))
-#    return self.number
- 
-def gen_uk():
-  return str(chr(randint(65,90))+chr(randint(65,90))+str(randint(0,9))+str(randint(0,9))+" "+chr(randint(65,90))+chr(randint(65,90))+chr(randint(65,90)))
-
-def gen_timef():
-  return gen.gen_time()
-
-def gen_time():
-  time_1 = randint(1448000000, 1448600000)
-  return time_1, time_1 + randint(2, 20)
-
-def gen_time1():
-  return randint(1448000000, 1448600000)
-#  def gen_time(self):
-#    from random import randint
-#    time_1 = randint(1448000000, 1448600000)
-#    time = randint(2, 20)
-#    time_2 = time_1 + time
-#    return time_1, time_2, time
-def gen_request():
-  r_1 = requests.post('http://localhost:8080/api/camera/1', json={"road":1, "plate":"YH57 GHB", "time": 1448587846}, headers={'content-type': 'application/json'})
-def run():
-  plate = gen_uk()
-  time_1, time_2, time = gen.gen_time()
-  payload_1 = {"road":1, "plate":plate, "time": time_1}
-  r_1 = requests.post(url_1, json=payload_1, headers=headers)
-  payload_2 = {"road":1, "plate": plate, "time": time_2}
-  r_2 = requests.post(url_2, json=payload_2, headers=headers)
-  
-import urllib3
 import json
-data = json.dumps({"road":1, "plate":"YH57 GHY", "time": 1448587846})
-def gen_requests():
-  http = urllib3.PoolManager()
-  r = http.request('POST', 'http://localhost:7000/api/camera/1',headers={'Content-Type': 'application/json'},body=data)
-  
+import urllib3
+import uuid
+gen = plate_gen()
 http = urllib3.PoolManager()
+url = 'http://localhost:7000/api/camera'
+#url_2 = 'http://localhost:7000/api/camera/2'
+road = 1
+#plate = "HT57 GHU"
+headers = {'Content-Type': 'application/json'}
+
+def make_payload(cam_id, plate, time):
+  cam_uuid = str(uuid.uuid4())
+  data = {"version":2,
+          "data_type":"alpr_results",
+          "epoch_time":time,
+          "site_id":"Cdon Way",
+          "camera_id":cam_id,
+          "uuid":cam_uuid,
+          "img_width":480,"img_height":640,
+          "processing_time_ms":160.482773,
+          "regions_of_interest":[],
+          "results":[
+      {"plate":plate,
+       "confidence":87.164879,
+       "matches_template":0,
+       "plate_index":0,
+       "region":"",
+       "region_confidence":0,
+       "processing_time_ms":16.496367,
+       "requested_topn":10,
+       "coordinates":[{"x":190,"y":378},{"x":268,"y":378},{"x":268,"y":415},{"x":190,"y":415}],
+       "candidates":[{"plate":"plate","confidence":87.164879,"matches_template":0},
+          {"plate":"7860","confidence":85.919258,"matches_template":0},
+          {"plate":"78610","confidence":83.191833,"matches_template":0},
+          {"plate":"786W0","confidence":80.517082,"matches_template":0},
+          {"plate":"786D0","confidence":80.371925,"matches_template":0},
+          {"plate":"786B0","confidence":80.036629,"matches_template":0},
+          {"plate":"786PO","confidence":74.894852,"matches_template":0},
+          {"plate":"786PQ","confidence":73.900421,"matches_template":0},
+          {"plate":"786O","confidence":73.649231,"matches_template":0},
+          {"plate":"786Q","confidence":72.654800,"matches_template":0}]
+      }
+    ]}
+
+  return str(json.dumps(data))
+
+#using the requests framwork
+def run():
+  plate = gen.gen_uk()
+  time_1 = gen.gen_time()
+  time_2 = gen.gen_more_time(time_1)
+  time_3 = gen.gen_more_time(time_2)
+  time_4 = gen.gen_more_time(time_3)
+  payload_1 = make_payload(1, plate, time_1)
+  payload_2 = make_payload(2, plate, time_2)
+  payload_3 = make_payload(3, plate, time_3)
+  payload_4 = make_payload(4, plate, time_4)
+  r_1 = requests.post(url, data=payload_1, headers=headers)
+  r_2 = requests.post(url, data=payload_2, headers=headers)
+  r_3 = requests.post(url, data=payload_3, headers=headers)
+  r_4 = requests.post(url, data=payload_4, headers=headers)
+  
+#using the urllib3 framwork
 def run_2():
-  time1, time2 = gen_time()
-  plate = "GH56 GHU"
-  data1 = json.dumps({"road":1, "plate":plate, "time": time1})
-  data2 = json.dumps({"road":1, "plate":plate, "time": time2})
-  r1 = http.request('POST', 'http://localhost:7000/api/camera/1',headers={'Content-Type': 'application/json'},body=data1)
-  r2 = http.request('POST', 'http://localhost:7000/api/camera/2',headers={'Content-Type': 'application/json'},body=data2)
+  time_1, time_2 = gen.gen_time()
+  #plate = gen.gen_uk()
+  payload_1 = make_payload(road, plate, time_1)
+  payload_2 = make_payload(road, plate, time_2)
+  r1 = http.request('POST', url, headers=headers, body=str(payload_1))
+  r2 = http.request('POST', url, headers=headers, body=str(payload_2))
 
-
-#    with c.makefile() as f:
-#        response = f.readline()
-#        if response != RESPONSE_200_STRING:
-#            response += f.read()
-#print(gen_uk())
 if __name__ == '__main__':
-  run_2()
-  #print('start')
-#timeit.timeit('run()','from __main__ import run', number=1000)
+  run()

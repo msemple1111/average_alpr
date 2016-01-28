@@ -1,29 +1,29 @@
+from random import randint
 class plate_gen:
-  def letter_gen(self,no):
+  def __init__(self):
     from random import randint
-    self.letter = []
+  def letter_gen(self, no):
+    letter = []
     for i in range(no):
-      self.letter.append(chr(randint(65,90)))
-    return self.letter
+      letter.append(chr(randint(65,90)))
+    return letter
       
-  def number_gen(self,no):
-    from random import randint
-    self.number = []
-    self.number.append(str(randint(0,9)))
-    self.number.append(str(randint(5,6)))
-    return self.number
+  def numbers_gen(self):
+    number = []
+    number.append(str(randint(0,9)))
+    number.append(str(randint(5,6)))
+    return number
   
   def gen_uk(self):
-    self.letters = self.letter_gen(5)
-    self.numbers = self.number_gen(2)
-    return str(self.letters[0]+self.letters[1]+self.numbers[0]+self.numbers[1]+" "+self.letters[2]+self.letters[3]+self.letters[4])
+    letters = self.letter_gen(5)
+    numbers = self.numbers_gen()
+    return str(letters[0]+letters[1]+numbers[0]+numbers[1]+" "+letters[2]+letters[3]+letters[4])
   
   def gen_time(self):
-    from random import randint
-    time_1 = randint(1448000000, 1448600000)
-    time = randint(2, 20)
-    time_2 = time_1 + time
-    return time_1, time_2, time
+    return randint(1448000000, 1448600000)
+  
+  def gen_more_time(self, time_1):
+    return (time_1 + randint(1, 20))
   
 
 class gen_database:
