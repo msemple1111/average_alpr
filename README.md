@@ -33,8 +33,8 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
 
 ## Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
-This program is deigned for Python 3.
-Install either through a virtual envirmoment or thought your normal python install.
+This program is deigned to be run using Python 3.
+Install either through a virtual envirmoment or through your normal python install.
 
 
 - python 3
