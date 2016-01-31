@@ -8,19 +8,19 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
     |                  |  MJPEG               MJPEG  |                  |
     |  Network Camera  | <---+                 +---> |  Network Camera  |
     |                  |     |                 |     |                  |      
-    +------------------+     |                 |     +-------+----------+                                                      
+    +------------------+     |                 |     +------------------+                                                      
                              |                 |                          
                              |                 |                                 
                              |      POST       |                              
-                             |------+----------|------------------------+
-                             |      |          |            POST   |    |
+                             |      +----------|------------------------+
+                             |      |          |            POST        |
                              |      |          |            +------+    |                              
                              |      |          |            |      |    |
                    +---------+------+      +---+------------+      |    |
                    |                |      |                |      |    |
                    | alprd server 1 |      | alprd server 2 |      |    |
                    |                |      |                |      |    |  
-                   +-----------+----+------+----+-----------+      |    |
+                   +-----------+----+------+------+---------+      |    |
                                |                  |           +----+----+-----+
                                |      Docker      |           |               |                      
                                |                  |           |   HTTP Server |                           
@@ -34,7 +34,7 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
 ## Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
 This program is deigned for Python 3.
-Install either through a virtualenv or thought your normal python install.
+Install either through a virtual envirmoment or thought your normal python install.
 
 
 - python 3
