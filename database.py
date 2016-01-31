@@ -4,7 +4,7 @@ class database: #the database class handles anything with a database connection
   def __init__(self):
     try:
       self.rdb = None
-      self.rdb = sql.connect('average_check_test.db')
+      self.rdb = sql.connect('average_check.db')
       self.ecx = self.rdb.cursor()
 
     except:
