@@ -17,10 +17,11 @@ class admin:
         self.quit = True
         while self.quit:
             self.term_in = input("alpr_util> ").lower()
-            if self.term_in in self.commands:
-                getattr(self, '%s' % self.term_in)()
+            self.term_in_split = self.term_in.split()
+            if self.term_in_split[0] in self.commands:
+                getattr(self, '%s' % self.term_in_split[0])()
             else:
-                print("Error: unknown command: '"+str(self.term_in)+ "'. Enter 'help' for help")
+                print("Error: unknown command: '"+str(self.term_in), self.term_in_split+"'. Enter 'help' for help")
                 error(51, "admin.init() error", False)
 
     def help(self):
@@ -31,11 +32,10 @@ class admin:
         self.quit = False
 
     def filename(self):
-        term_in = self.term_in.split()
-        if len(term_in) != 2:
-            print("Error: Too many arguments: Usage 'filename out.txt' - No Space Allowed")
+        if len(self.term_in_split) == 2:
+            self.filename = str(self.term_in_split[1])
         else:
-            self.filename = str(term_in[1])
+            print("Error: Too many arguments: Usage 'filename out.txt' - No Space Allowed")
 
 if __name__ == '__main__':
     start = admin()
