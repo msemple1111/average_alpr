@@ -21,7 +21,7 @@ class validate: #the validate class is pre vaidating every input
   def site(self, site):
     try:
       site_is_str = str(site)
-      return site_is_str
+      return site_is_str.lower()
     except Exception as e:
       error(32, str(e)+' vaild.site() error', True)
       return None

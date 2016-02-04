@@ -22,10 +22,11 @@ CREATE TABLE data (
 3.
 CREATE TABLE cams (
 cam_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+site_cam_id INTEGER NOT NULL,
 cam_m float(6,2) NOT NULL,
 s_id INTEGER NOT NULL
 );
- 'cam_lenght is the lenght along the road the cam is comapred to first cam'
+ 'cam_lenght is the length along the road the cam is compared to first cam'
 
 4.
 CREATE TABLE sites (
@@ -55,9 +56,11 @@ SELECT d_index FROM data where p_index = 'p_index' and r_id = 'road' order by ti
 # '64 bit epoch: maximal value of (2^63)−1 about 292 billion years. 9223372036854776000 seconds = 292,471,208,677.5 Years'
 '32bit epoch: runs out in 2038 - only 22.2 Years left'
 '32 bit: (2**31-1)/(500000*365)=11.767 Years'
-'64 bit: (2**63-1)/(500000*365)= 50,539,024,859.5 years 50 billion years not acounting for rise in car useage'
+'64 bit: (2**63-1)/(500000*365)= 50,539,024,859.5 years 50 billion years not accounting for rise in car usage'
 'value from Ontario Highway 401, Canada'
-'(max 64 bit value) / (max thourput per year)'
+'(max 64 bit value) / (max throughput per year)'
 
 select cam_m from cams where s_id = 1 and cam_id = 1 limit 1;
 SELECT time, cam_id FROM data where p_id = 1 and s_id = '"+str(s_id)+"' order by d_index DESC limit 1;
+
+SELECT cam_id FROM cams where site_cam_id = 2 and s_id = 1 LIMIT 1;

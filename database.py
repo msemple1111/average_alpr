@@ -22,6 +22,8 @@ class database: #the database class handles anything with a database connection
     try:
       self.ecx.execute("select s_id, s_limit from sites where site_id = '"+str(site_id)+"' limit 1;")
       result = self.ecx.fetchone()
+      if result == None:
+          error(3,'sql find site() error (none type) - ', True)
       return result[0], result[1]
     except Exception as e:
        error(3, str(e)+'sql find site() error', True)
@@ -43,7 +45,7 @@ class database: #the database class handles anything with a database connection
       self.ecx.execute("select cam_m from cams where s_id = '"+str(s_id)+"' and cam_id = '"+str(cam_id)+"' limit 1;")
       result = self.ecx.fetchone()
       if result == None:
-        error(5,'sql get_cam_m() error (no cam) - '+str(s_id)+' - '+str(cam_id), False)
+        error(5,'sql get_cam_m() error (no cam) - '+str(s_id)+' - '+str(cam_id), True)
       return float(result[0])
     except Exception as e:
       error(5,str(e)+'sql get_cam_m() error - '+str(result), True)
@@ -60,7 +62,7 @@ class database: #the database class handles anything with a database connection
     self.ecx.execute("SELECT time, cam_id FROM data where p_id = '"+str(p_id)+"' and s_id = '"+str(s_id)+"' order by d_index DESC limit 1;")
     result = self.ecx.fetchone()
     if result == None:
-      error(8,'get last_cam error - '+str(p_id)+' - '+str(s_id)+' - '+str(result), False)
+      error(8,'get last_cam error - '+str(p_id)+' - '+str(s_id)+' - '+str(result), True)
       return -1
     return result[0], result[1]
 
@@ -71,6 +73,7 @@ class database: #the database class handles anything with a database connection
       self.ecx.execute("SELECT time FROM data where p_id = '"+str(p_id)+"' and s_id = '"+str(s_id)+"' order by d_index DESC limit 1;")
       result = self.ecx.fetchone()
       if result == None:
+        error(9,' sql cam_first() error', True)
         return True
       return (result[0] < time - 3600)# if older than 1 Hour
     except Exception as e:
@@ -85,9 +88,16 @@ class database: #the database class handles anything with a database connection
 
   def return_speeders(self):
     try:
-      self.ecx.execute("")
-      result = self.ecx.fetchone("SELECT * FROM data where speed > 0 order by d_index DESC;")
+      self.ecx.execute("SELECT * FROM data where speed > 0 order by d_index DESC;")
+      result = self.ecx.fetchone()
       return result
-
     except:
       error(11,str(e)+' sql record_speeders() error', True)
+
+  def get_cam_id(self, site_cam_id, s_id):
+    try:
+      self.ecx.execute("SELECT cam_id FROM cams where site_cam_id = '"+str(site_cam_id)+"' and s_id = '"+str(s_id)+"' LIMIT 1;")
+      result = self.ecx.fetchone()
+      return result
+    except:
+      error(12,str(e)+' sql get_cam_id() error', True)

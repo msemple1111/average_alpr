@@ -3,6 +3,7 @@ import requests
 import json
 import urllib3
 import uuid
+from database import database
 gen = plate_gen()
 http = urllib3.PoolManager()
 url = 'http://localhost:7000/api/camera'
@@ -62,7 +63,7 @@ def run():
   r_2 = requests.post(url, data=payload_2, headers=headers)
   r_3 = requests.post(url, data=payload_3, headers=headers)
   r_4 = requests.post(url, data=payload_4, headers=headers)
-  
+
 #using the urllib3 framwork
 def run_2():
   time_1, time_2 = gen.gen_time()
@@ -72,5 +73,14 @@ def run_2():
   r1 = http.request('POST', url, headers=headers, body=str(payload_1))
   r2 = http.request('POST', url, headers=headers, body=str(payload_2))
 
+def run3():
+    site_id = 'cdon way'
+    site_cam_id = 1
+    time_2 = gen.gen_time()
+    sqlite = database()
+    s_id, s_limit = sqlite.find_site(site_id)
+    self.cam_id = sqlite.get_cam_id(site_cam_id, s_id)
+    self.curr_cam_m = sqlite.get_cam_m(cam_id, s_id)
+
 if __name__ == '__main__':
-  run()
+  run3()
