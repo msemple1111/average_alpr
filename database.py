@@ -98,6 +98,10 @@ class database: #the database class handles anything with a database connection
     try:
       self.ecx.execute("SELECT cam_id FROM cams where site_cam_id = '"+str(site_cam_id)+"' and s_id = '"+str(s_id)+"' LIMIT 1;")
       result = self.ecx.fetchone()
+      if result == None:
+        error(12,' sql cam_first() error', True)
+        return None
+      return result[0]
       return result
     except:
       error(12,str(e)+' sql get_cam_id() error', True)

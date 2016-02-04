@@ -79,8 +79,10 @@ def run3():
     time_2 = gen.gen_time()
     sqlite = database()
     s_id, s_limit = sqlite.find_site(site_id)
-    self.cam_id = sqlite.get_cam_id(site_cam_id, s_id)
-    self.curr_cam_m = sqlite.get_cam_m(cam_id, s_id)
+    cam_id = sqlite.get_cam_id(site_cam_id, s_id)
+    curr_cam_m = sqlite.get_cam_m(cam_id, s_id)
+    print(s_id, s_limit, cam_id, curr_cam_m)
+    print('fin')
 
 if __name__ == '__main__':
-  run3()
+  run()
