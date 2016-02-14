@@ -73,35 +73,35 @@ class database: #the database class handles anything with a database connection
       self.ecx.execute("SELECT time FROM data where p_id = '"+str(p_id)+"' and s_id = '"+str(s_id)+"' order by d_index DESC limit 1;")
       result = self.ecx.fetchone()
       if result == None:
-        error(9,' sql cam_first() error', True)
+        #error(9,' sql cam_first() error '+str(curr_cam_m)+' '+str(time)+' '+str(p_id)+' '+str(s_id), False)
         return True
       return (result[0] < time - 3600)# if older than 1 Hour
     except Exception as e:
-      error(9,str(e)+' sql cam_first() error', True)
+      error(10,str(e)+' sql cam_first() error', True)
 
   def record_first(self, p_id, cam_id, s_id, uuid, time):
     try:
       self.ecx.execute("INSERT INTO data (p_id, cam_id, s_id, uuid, time) VALUES ('"+str(p_id)+"', '"+str(cam_id)+"', '"+str(s_id)+"', '"+str(uuid)+"', '"+str(time)+"')")
       self.rdb.commit()
     except Exception as e:
-      error(10,str(e)+' sql record_first_time() error '+str(p_id)+' - '+str(cam_id)+' - '+str(s_id)+' - '+str(uuid)+' - '+str(time), True)
+      error(11,str(e)+' sql record_first_time() error '+str(p_id)+' - '+str(cam_id)+' - '+str(s_id)+' - '+str(uuid)+' - '+str(time), True)
 
   def return_speeders(self):
     try:
       self.ecx.execute("SELECT * FROM data where speed > 0 order by d_index DESC;")
       result = self.ecx.fetchone()
       return result
-    except:
-      error(11,str(e)+' sql record_speeders() error', True)
+    except Exception as e:
+      error(12,str(e)+' sql record_speeders() error', True)
 
   def get_cam_id(self, site_cam_id, s_id):
     try:
       self.ecx.execute("SELECT cam_id FROM cams where site_cam_id = '"+str(site_cam_id)+"' and s_id = '"+str(s_id)+"' LIMIT 1;")
       result = self.ecx.fetchone()
       if result == None:
-        error(12,' sql cam_first() error', True)
+        error(13,' sql get_cam_id() error '+str(site_cam_id)+' '+str(s_id), True)
         return None
       return result[0]
       return result
-    except:
-      error(12,str(e)+' sql get_cam_id() error', True)
+    except Exception as e:
+      error(14,str(e)+' sql get_cam_id() error', True)

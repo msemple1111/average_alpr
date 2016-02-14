@@ -12,12 +12,12 @@ road = 1
 #plate = "HT57 GHU"
 headers = {'Content-Type': 'application/json'}
 
-def make_payload(cam_id, plate, time):
+def make_payload(cam_id, plate, time, s_id):
   cam_uuid = str(uuid.uuid4())
   data = {"version":2,
           "data_type":"alpr_results",
           "epoch_time":time,
-          "site_id":"Cdon Way",
+          "site_id":s_id,
           "camera_id":cam_id,
           "uuid":cam_uuid,
           "img_width":480,"img_height":640,
@@ -49,20 +49,58 @@ def make_payload(cam_id, plate, time):
   return str(json.dumps(data))
 
 #using the requests framwork
-def run():
-  plate = gen.gen_uk()
-  time_1 = gen.gen_time()
-  time_2 = gen.gen_more_time(time_1)
-  time_3 = gen.gen_more_time(time_2)
-  time_4 = gen.gen_more_time(time_3)
-  payload_1 = make_payload(1, plate, time_1)
-  payload_2 = make_payload(2, plate, time_2)
-  payload_3 = make_payload(3, plate, time_3)
-  payload_4 = make_payload(4, plate, time_4)
-  r_1 = requests.post(url, data=payload_1, headers=headers)
-  r_2 = requests.post(url, data=payload_2, headers=headers)
-  r_3 = requests.post(url, data=payload_3, headers=headers)
-  r_4 = requests.post(url, data=payload_4, headers=headers)
+def run_1():
+    site_id = "nailsea way"
+    plate = gen.gen_uk()
+    time_1 = gen.gen_time()
+    time_2 = gen.gen_more_time(time_1)
+    time_3 = gen.gen_more_time(time_2)
+    time_4 = gen.gen_more_time(time_3)
+    payload_1 = make_payload(1, plate, time_1, site_id)
+    payload_2 = make_payload(2, plate, time_2, site_id)
+    payload_3 = make_payload(3, plate, time_3, site_id)
+    payload_4 = make_payload(4, plate, time_4, site_id)
+    r_1 = requests.post(url, data=payload_1, headers=headers)
+    r_2 = requests.post(url, data=payload_2, headers=headers)
+    r_3 = requests.post(url, data=payload_3, headers=headers)
+    r_4 = requests.post(url, data=payload_4, headers=headers)
+
+class run_plates:
+    def __init__(self, number):
+        self.number = int(number)
+        self.url = 'http://localhost:7000/api/camera'
+        self.headers = {'Content-Type': 'application/json'}
+        self.times = []
+        self.site_id = "nailsea way"
+        self.gen_times()
+        self.gen_plates()
+        self.run_times()
+
+    def send_one(self, send_time, send_cam, send_plate):
+        payload = make_payload(send_cam, send_plate, send_time, self.site_id)
+        r = requests.post(self.url, data=payload, headers=self.headers)
+
+    def gen_plates(self):
+        plates = []
+        for x in range(self.number):
+            plates.append(gen.gen_uk())
+        self.times.append(plates)
+        #[[time_1a, time_1b], [time_2a, time_2b], [time_3a, time_3b], [time_4a, time_4b], [plate_a, plate_b]]
+
+    def gen_times(self):
+        times = [[],[],[],[]]
+        for y in range(self.number):
+            times[0].append(gen.gen_time())
+            for z in range(3):
+                times[z+1].append(gen.gen_more_time(times[z][y]))
+        self.times = times
+        #[[time_1, time_1], [time_2, time_2], [time_3, time_3], [time_4, time_4]]
+
+    def run_times(self):
+        for x in range(4):
+            for pos, key in enumerate(self.times[x]):
+                self.send_one(key, x+1, self.times[4][pos])
+
 
 #using the urllib3 framwork
 def run_2():
@@ -85,4 +123,4 @@ def run3():
     print('fin')
 
 if __name__ == '__main__':
-  run()
+  start_plates = run_plates(10)
