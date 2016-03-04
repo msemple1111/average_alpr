@@ -106,14 +106,16 @@ class database_tests(unittest.TestCase):
     result0 = sqlite.add_plate(plate) #adding new plate and returning p_index
     self.assertEqual(max_index, result0) #result should match the hightest p_index from before
 
-  def test_sql_checkplate_valid2(self):
-    sqlite = database() #initialising database
-    result1 = sqlite.add_plate('KU46 KRQ') #this plate is already in the database - so it should return ust the p_index
-    self.assertEqual(13, result1) #i know the p_index for this plate is
+  # def test_sql_checkplate_valid2(self):
+  #   sqlite = database() #initialising database
+  #   result1 = sqlite.add_plate('KU46 KRQ') #this plate is already in the database - so it should return ust the p_index
+  #   self.assertEqual(13, result1) #i know the p_index for this plate is 13
 
   #def test_record_time_1_valid(self):
     #sqlite = database()
     #sqlite.record_time_1(28,1,1449999991)
+
+
 
 
 if __name__ == '__main__':

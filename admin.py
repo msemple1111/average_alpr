@@ -11,7 +11,8 @@ class admin:
                Default 'out.txt'",
         "speeders": "outputs speeders to file",
         }
-        self.filename = "out.txt"
+        self.sqlite = database()
+        self.file_name = "out.txt"
         print("ALPR Admin Util V1.1")
         print("Enter 'help' for usage hints.\nEnter 'exit' to quit.")
         self.quit = True
@@ -21,7 +22,7 @@ class admin:
             if self.term_in_split[0] in self.commands:
                 getattr(self, '%s' % self.term_in_split[0])()
             else:
-                print("Error: unknown command: '"+str(self.term_in), self.term_in_split+"'. Enter 'help' for help")
+                print("Error: unknown command: '",str(self.term_in), self.term_in_split,"'. Enter 'help' for help")
                 error(51, "admin.init() error", False)
 
     def help(self):
@@ -33,9 +34,12 @@ class admin:
 
     def filename(self):
         if len(self.term_in_split) == 2:
-            self.filename = str(self.term_in_split[1])
+            self.file_name = str(self.term_in_split[1])
         else:
-            print("Error: Too many arguments: Usage 'filename out.txt' - No Space Allowed")
+            print("Error: Too many arguments: Usage 'filename out.txt' - No Space Allowed in filenam")
+
+    def speeders(self):
+        self.return_speeders()
 
 if __name__ == '__main__':
     start = admin()
