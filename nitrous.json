@@ -1,0 +1,7 @@
+{
+  "template": "python", 
+  "ports": [7000],
+  "name": "Average Alpr Development",
+  "logo": "http://i.imgur.com/ShCHkra.png",
+  "description": "An add on for openalpr to record speed, time and the plate."
+}
