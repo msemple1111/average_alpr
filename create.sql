@@ -38,10 +38,10 @@ INSERT INTO sites
 INSERT INTO cams
 	(cam_m, site_cam_id, s_id)
   VALUES
-  (0,1,2),
-  (250,2,2),
-  (500,3,2),
-  (750,4,2);
+  (0,1,1),
+  (250,2,1),
+  (500,3,1),
+  (750,4,1);
 
 INSERT INTO plates
 	(plate) Values ("FT56 GHY");

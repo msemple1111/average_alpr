@@ -82,7 +82,7 @@ source bin/activate
 
 Install Python Dependancys
 ```
-pip install tornado flask
+pip install tornado flask requests urllib3
 ```
 
 Populate sqlite database

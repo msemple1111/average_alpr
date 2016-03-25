@@ -48,30 +48,14 @@ def make_payload(cam_id, plate, time, s_id):
 
   return str(json.dumps(data))
 
-#using the requests framwork
-def run_1():
-    site_id = "nailsea way"
-    plate = gen.gen_uk()
-    time_1 = gen.gen_time()
-    time_2 = gen.gen_more_time(time_1)
-    time_3 = gen.gen_more_time(time_2)
-    time_4 = gen.gen_more_time(time_3)
-    payload_1 = make_payload(1, plate, time_1, site_id)
-    payload_2 = make_payload(2, plate, time_2, site_id)
-    payload_3 = make_payload(3, plate, time_3, site_id)
-    payload_4 = make_payload(4, plate, time_4, site_id)
-    r_1 = requests.post(url, data=payload_1, headers=headers)
-    r_2 = requests.post(url, data=payload_2, headers=headers)
-    r_3 = requests.post(url, data=payload_3, headers=headers)
-    r_4 = requests.post(url, data=payload_4, headers=headers)
-
+#more complicated class using requests framework
 class run_plates:
     def __init__(self, number):
         self.number = int(number)
         self.url = 'http://localhost:7000/api/camera'
         self.headers = {'Content-Type': 'application/json'}
         self.times = []
-        self.site_id = "nailsea way"
+        self.site_id = "cdon way"
         self.gen_times()
         self.gen_plates()
         self.run_times()
@@ -101,8 +85,25 @@ class run_plates:
             for pos, key in enumerate(self.times[x]):
                 self.send_one(key, x+1, self.times[4][pos])
 
+#basic function using the requests framwork
+def run_1():
+    site_id = "nailsea way"
+    plate = gen.gen_uk()
+    time_1 = gen.gen_time()
+    time_2 = gen.gen_more_time(time_1)
+    time_3 = gen.gen_more_time(time_2)
+    time_4 = gen.gen_more_time(time_3)
+    payload_1 = make_payload(1, plate, time_1, site_id)
+    payload_2 = make_payload(2, plate, time_2, site_id)
+    payload_3 = make_payload(3, plate, time_3, site_id)
+    payload_4 = make_payload(4, plate, time_4, site_id)
+    r_1 = requests.post(url, data=payload_1, headers=headers)
+    r_2 = requests.post(url, data=payload_2, headers=headers)
+    r_3 = requests.post(url, data=payload_3, headers=headers)
+    r_4 = requests.post(url, data=payload_4, headers=headers)
 
-#using the urllib3 framwork
+
+#basic functions using the urllib3 framwork
 def run_2():
   time_1, time_2 = gen.gen_time()
   #plate = gen.gen_uk()
