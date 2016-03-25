@@ -66,7 +66,7 @@ Recommended installation method
 
 download source code into avg_alpr directory
 ```
-git clone https://gitlab.com/msemple1111/average_check.git avg_alpr
+git clone https://github.com/msemple1111/average_alpr.git avg_alpr
 ```
 
 create the virtual environment, cd into it
