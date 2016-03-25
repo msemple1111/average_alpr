@@ -44,6 +44,10 @@ This guide is designed for linux and mac but can easily be used on Windows.
 This program is deigned to be run using Python 3.
 Install either through a virtual envirmoment or through your normal python install.
 
+### Quick Installation for testing/development
+[![Nitrous Quickstart](https://nitrous-image-icons.s3.amazonaws.com/quickstart.svg)](https://www.nitrous.io/quickstart)
+
+### Manual Installation
 
 - python 3
 [Install Python 3](https://www.python.org/downloads/)
