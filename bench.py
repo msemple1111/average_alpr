@@ -125,3 +125,4 @@ def run3():
 
 if __name__ == '__main__':
   start_plates = run_plates(10)
+  print("Everything is good!")

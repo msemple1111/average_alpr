@@ -13,7 +13,6 @@ class cam: # the cam class is the controlling class that takes the input and pro
     self.calc = calculate()
     self.s_id, self.s_limit = self.sqlite.find_site(site_id)
     self.cam_id = self.sqlite.get_cam_id(self.site_cam_id, self.s_id)
-    #print(self.cam_id, self.s_id)
     self.curr_cam_m = self.sqlite.get_cam_m(self.cam_id, self.s_id)
     for plate_no in range(0,len(self.request_data['results'])):
       self.plate(plate_no)
