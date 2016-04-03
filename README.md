@@ -44,7 +44,7 @@ This guide is designed for linux and mac but can easily be used on Windows.
 This program is deigned to be run using Python 3.
 Install either through a virtual environment or through your normal python install.
 
-### Quick Installation for testing/development
+## Quick Installation for testing/development
 [![Nitrous Quickstart](https://nitrous-image-icons.s3.amazonaws.com/quickstart.svg)](https://www.nitrous.io/quickstart)
 
 ## Manual Installation
@@ -58,7 +58,7 @@ pip install virtualenv
 ```
 
 - openalpr installed
-[install OpenAlpr](https://github.com/openalpr/openalpr/)
+[Install OpenAlpr](https://github.com/openalpr/openalpr/)
 
 - SQLite
 [Install SQLite](http://www.tutorialspoint.com/sqlite/sqlite_installation.htm)
