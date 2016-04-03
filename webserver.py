@@ -13,7 +13,7 @@ def bad_request_400(error):
 def not_found_404(error):
   #error(404,'error 404')
   return make_response(jsonify( { 'error': True, 'error_type':'Not found', 'error_no': 404} ), 404)
-  
+
 @application.errorhandler(405)
 def not_found_404(error):
   #error(405,'error 405')
@@ -25,12 +25,12 @@ def internal_error_500(error):
 
 @application.route("/", methods=['GET','POST'])
 def hello():
-  return "<h1 style='color:blue'>Hello There!,,G</h1>"
+  return "<h1 style='color:blue'>Hello There!</h1>"
 
 @application.route('/api/camera', methods=['POST'])
 def main():
   start = cam(request.json)
   return json.dumps({'error': False})
-  
+
 if __name__ == '__main__':
   application.run(host='0.0.0.0', port=7000, debug=True)

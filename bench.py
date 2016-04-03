@@ -7,7 +7,6 @@ from database import database
 gen = plate_gen()
 http = urllib3.PoolManager()
 url = 'http://localhost:7000/api/camera'
-#url_2 = 'http://localhost:7000/api/camera/2'
 road = 1
 #plate = "HT57 GHU"
 headers = {'Content-Type': 'application/json'}
@@ -124,5 +123,10 @@ def run3():
     print('fin')
 
 if __name__ == '__main__':
-  start_plates = run_plates(10)
-  print("Everything is good!")
+    try:
+        start_plates = run_plates(10)
+        print("Everything is good!")
+    except requests.exceptions.ConnectionError:
+        print("\nError: Connection error: Cannot Connect to Average Check Server on")
+        print(url)
+        print("try starting the server?")
