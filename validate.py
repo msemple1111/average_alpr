@@ -5,9 +5,8 @@ from error import error
 class validate: #the validate class is pre vaidating every input
   def plate(self, plate):
     try:#validate the plate against known plate patterns
-      plate_out = plate.replace(" ", "").upper()
-      #https://gist.github.com/danielrbradley/7567269
-      plate_valid = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)|([A-Z][0-9]{1,3}[A-Z]{3}$)|([A-Z]{3}[0-9]{1,3}[A-Z]$)|([0-9]{1,4}[A-Z]{1,2}$)|([0-9]{1,3}[A-Z]{1,3}$)|([A-Z]{1,2}[0-9]{1,4}$)|([A-Z]{1,3}[0-9]{1,3}$)")
+      plate_out = plate.replace(" ", "").upper()#take out spaces and convert all leters to uppercase
+      plate_valid = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)") #uk plate regex pattern
       #validate foreign plates- asume no characters and only numbers and letters
       f_plate_valid = re.compile("^[a-zA-Z.\d]{1,13}$")
       if plate_valid.match(plate_out): #if british
