@@ -41,6 +41,9 @@ SELECT * FROM data LIMIT 5;
 
 SELECT * FROM data WHERE plate="Smith";
 
+select d_index, p.p_id, uuid, s_id, time, cam_id, speed from data as d, plates as p where d.speed > 0 and p_foreign = 'TRUE' and p.p_id=d.p_id;
+
+select * from owners where p_id= ;
  INSERT INTO data (plate) VALUES ();
 
  SELECT d_index FROM data where p_index = 26 and r_id = 1 order by time_1 DESC limit 1;
