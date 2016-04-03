@@ -1,7 +1,7 @@
 ## Design
 
-For each new road, a new instance should be used, either throuth docker or a new server.
-The HTTP Server (this program) can either be in the same machine as the openalpr daemon or on a seperate machine.
+For each new road, a new instance should be used, either through docker or a new server.
+The HTTP Server (this program) can either be in the same machine as the openalpr daemon or on a separate machine.
 
 
     +------------------+                             +------------------+
@@ -42,7 +42,7 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
 ## Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
 This program is deigned to be run using Python 3.
-Install either through a virtual envirmoment or through your normal python install.
+Install either through a virtual environment or through your normal python install.
 
 ### Quick Installation for testing/development
 [![Nitrous Quickstart](https://nitrous-image-icons.s3.amazonaws.com/quickstart.svg)](https://www.nitrous.io/quickstart)
@@ -64,9 +64,9 @@ pip install virtualenv
 [Install SQLite](http://www.tutorialspoint.com/sqlite/sqlite_installation.htm)
 
 
-### Section 1 - Using Virtualenv, SQLite with Tornado Web Server
-Recommended installation method
 
+### Recommended installation method
+Using Virtualenv, SQLite with Tornado Web Server
 
 download source code into avg_alpr directory
 ```
@@ -79,12 +79,12 @@ virtualenv -p python3 avg_alpr
 cd avg_alpr
 ```
 
-Activate virtual enviroment
+Activate virtual environment
 ```
 source bin/activate
 ```
 
-Install Python Dependancys
+Install Python Dependancies
 ```
 pip install tornado flask requests urllib3
 ```
@@ -101,7 +101,7 @@ python tornado_start.py
 ```
 
 
-Open a new terminal Window and Test WebServer is working
+Open a new terminal Window and Test the Web Server is working
 ```
 python bench.py
 ```
@@ -129,7 +129,7 @@ site_id = bromley-w
 ; each unique stream should be defined as stream = [url]
 
 ; these are the cameras placed on the road
-; remember the order you put these in - they corispond to the camera number
+; remember the order you put these in - they correspond to the camera number
 ; you will need to set the distances for these cameras later in the config
 stream = http://123.45.67.89/first_video_stream.mjpeg
 stream = http://98.76.54.32/second_video_stream.mjpeg
