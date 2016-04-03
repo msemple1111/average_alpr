@@ -18,9 +18,9 @@ class cam: # the cam class is the controlling class that takes the input and pro
       self.plate(plate_no)
 
   def plate(self, plate_no):
-    plate, p_forign = self.valid.plate(self.request_data['results'][plate_no]['plate'])
+    plate, p_foreign = self.valid.plate(self.request_data['results'][plate_no]['plate'])
     p_confidence = self.valid.confidence(self.request_data['results'][plate_no]['confidence'])
-    p_id = self.sqlite.add_plate(plate, p_forign)#
+    p_id = self.sqlite.add_plate(plate, p_foreign)#
     cam_first = self.sqlite.cam_first(self.curr_cam_m, self.time_2, p_id, self.s_id)
     if cam_first:
       self.sqlite.record_first(p_id, self.cam_id, self.s_id, self.uuid, self.time_2)

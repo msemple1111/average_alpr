@@ -8,8 +8,8 @@ class admin:
         self.commands = {
         "help":"Show this message",
         "exit":"Quit this program",
-        "speeders": "outputs speeders and addresses to file",
-        "speeders_forign": "outputs forign speeders to file"
+        "speeders": "Outputs speeders and addresses to file",
+        "speeders_foreign": "Outputs foreign speeders to file"
         }#a dictionary of the commands that can be run
         self.sqlite = database() #start the database class for data retriaval
         print("ALPR Admin Util V0.2")
@@ -24,7 +24,7 @@ class admin:
 
     def help(self):
         for key, value in self.commands.items():#display each command
-            print('{:<12}  {}'.format(key, value))#format string with spaces
+            print('{:<16}  {}'.format(key, value))#format string with spaces
 
     def exit(self):
         self.quit = True #end program
@@ -57,8 +57,8 @@ class admin:
         self.save_to_file(string_out)#then save it to file
         print("Saved speeders to:",self.file_name)#print where it was saved
 
-    def speeders_forign(self):#only compiles forign speeders
-        speeders = self.sqlite.return_forign_speeders()#get list of all the forign speeders
+    def speeders_foreign(self):#only compiles foreign speeders
+        speeders = self.sqlite.return_foreign_speeders()#get list of all the foreign speeders
         string_out = ''#create empty string for output
         for x in speeders:#do one speeder at a time
             string_out = string_out + self.make_speed_string(x) + "\n"#make the speeding string

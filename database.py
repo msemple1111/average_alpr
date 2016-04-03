@@ -85,7 +85,7 @@ class database: #the database class handles anything with a database connection
     except Exception as e:
       error(12,str(e)+' sql record_speeders() error', True)
 
-  def return_forign_speeders(self):
+  def return_foreign_speeders(self):
     try:
       self.ecx.execute("select d_index, p.p_id, uuid, s_id, time, cam_id, speed from data as d, plates as p where d.speed > 0 and p_foreign = 'TRUE' and p.p_id=d.p_id;")
       result = self.ecx.fetchall()
@@ -136,4 +136,3 @@ class database: #the database class handles anything with a database connection
       return result[1], result[2]
     except Exception as e:
       error(18,str(e)+' sql get_owner() error', True)
-      

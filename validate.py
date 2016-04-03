@@ -8,12 +8,12 @@ class validate: #the validate class is pre vaidating every input
       plate_out = plate.replace(" ", "").upper()
       #https://gist.github.com/danielrbradley/7567269
       plate_valid = re.compile("([A-Z]{2}[0-9]{2}[A-Z]{3}$)|([A-Z][0-9]{1,3}[A-Z]{3}$)|([A-Z]{3}[0-9]{1,3}[A-Z]$)|([0-9]{1,4}[A-Z]{1,2}$)|([0-9]{1,3}[A-Z]{1,3}$)|([A-Z]{1,2}[0-9]{1,4}$)|([A-Z]{1,3}[0-9]{1,3}$)")
-      #validate forign plates- asume no characters and only numbers and letters
+      #validate foreign plates- asume no characters and only numbers and letters
       f_plate_valid = re.compile("^[a-zA-Z.\d]{1,13}$")
       if plate_valid.match(plate_out): #if british
-        return plate.upper(), False #return plate all uppercase and with no forign tag
-      elif f_plate_valid.match(plate_out): #if forign
-        return plate, True #return plate how it came, with forign tag
+        return plate.upper(), False #return plate all uppercase and with no foreign tag
+      elif f_plate_valid.match(plate_out): #if foreign
+        return plate, True #return plate how it came, with foreign tag
       else: #return none type, because plate matched no rules
         return None, None
     except:
