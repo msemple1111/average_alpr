@@ -1,4 +1,4 @@
-## Design
+# Design
 
 For each new road, a new instance should be used, either through docker or a new server.
 The HTTP Server (this program) can either be in the same machine as the openalpr daemon or on a separate machine.
@@ -39,7 +39,7 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
                                       |                                   |
                                       +-----------------------------------+
 
-## Installation:
+# Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
 This program is deigned to be run using Python 3.
 Install either through a virtual environment or through your normal python install.
@@ -47,7 +47,7 @@ Install either through a virtual environment or through your normal python insta
 ### Quick Installation for testing/development
 [![Nitrous Quickstart](https://nitrous-image-icons.s3.amazonaws.com/quickstart.svg)](https://www.nitrous.io/quickstart)
 
-### Manual Installation
+## Manual Installation
 
 - python 3
 [Install Python 3](https://www.python.org/downloads/)
