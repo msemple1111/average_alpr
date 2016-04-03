@@ -38,6 +38,25 @@ The HTTP Server (this program) can either be in the same machine as the openalpr
                                       |           Host Machine            |
                                       |                                   |
                                       +-----------------------------------+
+# Testing
+You can quickly test if the program is functioning correctly by using these commands:
+
+To test in Nitrous:
+
+- In one terminal window enter this:
+```
+cd ~/code/average_alpr
+source bin/activate
+python tornado_start.py
+```
+
+- In another terminal window enter this:
+```
+cd ~/code/average_alpr
+source bin/activate
+python tests.py
+python bench.py
+```
 
 # Installation:
 This guide is designed for linux and mac but can easily be used on Windows.
