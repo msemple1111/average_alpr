@@ -136,7 +136,4 @@ class database: #the database class handles anything with a database connection
       return result[1], result[2]
     except Exception as e:
       error(18,str(e)+' sql get_owner() error', True)
-
-if __name__ == '__main__':
-    data = database()
-    print(data.return_speeders())
+      
