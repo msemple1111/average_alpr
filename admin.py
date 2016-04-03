@@ -43,7 +43,10 @@ class admin:
         return string#ouput string
 
     def make_address_string(self, p_id):#make the string to output
-        owner, address = self.sqlite.get_owner(p_id)#get owner and address from sqlite
+        get_owner = self.sqlite.get_owner(p_id)#get owner and address from sqlite
+        if get_owner == None:#none type means that plate has no address associated
+            return '' #return nothing
+        owner, address = get_owner #split up the tuple
         string = "Owner: " + owner + "   Address: " + address#compile string
         return string#ouput string
 
